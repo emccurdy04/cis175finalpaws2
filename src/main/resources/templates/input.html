@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Group 8 Final Project - Pet Adoption Website Service (P.A.W.S.) v2</title>
+</head>
+<body>
+<header><h1>P.A.W.S. Generic Pets input page</h1><br/>
+<h2>Insert a new Pet or Edit Pet</h2></header>
+
+<form th:object="${newPet}" th:action="@{/update/{petId}(id=${newPet.petId})}"
+ method='POST'>
+<!-- Adding in the th:field="*{variableName}" to each of the below input lines
+to pass the object over to the input.html & parse the object data into the
+appropriate boxes - rather than doing a separate page to edit an item  -->
+Enter/Update Pet's name: <input name="petName" size="20" th:field="*{petName}"><br/>
+Enter/Update Pet's type: <input name="petType" size="20" th:field="*{petType}"><br/>
+Enter/Update Pet's breed: <input name="breed" size="20" th:field="*{breed}"><br/>
+Enter/Update Pet's gender: <input name="gender" size="20" th:field="*{gender}">
+<br/>
+Enter/Update Volunteer information of person who is fostering pet: <br>
+Enter/Update Volunteer's first name: <input name="volunteer.firstName" size="24" th:field="*{volunteer.firstName}">
+Enter/Update Volunteer's last name: <input name="volunteer.lastName" size="24" th:field="*{volunteer.lastName}">
+<br/>
+Enter/Update Vounteer's address: <br>
+Street: <input name="volunteer.street" size="50" th:field="*{volunteer.street}"><br/>
+City: <input name="volunteer.city" size="20" th:field="*{volunteer.city}"><br/>
+State: <input name="volunteer.state" size="20" th:field="*{volunteer.state}"><br/>
+Zip: <input name="volunteer.zip" size="9" th:field="*{volunteer.zip}"><br/>
+Phone Number: <input name="volunteer.phone" size="15" th:field="*{volunteer.phone}"><br/>
+
+<input name="submit" type="submit" value="submit" />
+</form>
+<a href="viewAll">View all Pets</a>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Group 8 Final Project - Pet Adoption Website Service (P.A.W.S.) v2</title>
+</head>
+<body>
+<header><h1>P.A.W.S. Generic Pets results page</h1><br/>
+<h2>View all Pets</h2></header>
+
+<form >
+<table>
+<tr th:each="currentPet : ${pets}">
+	<td th:text="${currentPet.petId}" />
+	<td th:text="${currentPet.petName}" />
+	<td th:text="${currentPet.breed}" />
+	<td th:text="${currentPet.gender}" />
+	<!-- Volunteer information of person who is fostering pet: -->
+	<td th:text="Volunteer information of person who is fostering pet:" />
+	<!-- <td th:text="${currentPet.fosterOwner.volunteerId}" /> -->
+	<td th:text="${currentPet.volunteer.firstName}" />
+	<td th:text="${currentPet.volunteer.lastName}" />
+	<td th:text="${currentPet.volunteer.street}" />
+	<td th:text="${currentPet.volunteer.city}" />
+	<td th:text="${currentPet.volunteer.state}" />
+	<td th:text="${currentPet.volunteer.zip}" />
+	<td th:text="${currentPet.volunteer.phone}" />
+	<!-- <td><a th:href="@{/edit/{id}(id=${currentPet.petId})}">Edit</a></td>
+	<td><a th:href="@{/delete/{id}(id=${currentPet.petId})}">Delete</a></td> -->
+	<td><a th:href="@{/edit/{petId}(id=${currentPet.petId})}">Edit</a></td>
+	<td><a th:href="@{/delete/{petId}(id=${currentPet.petId})}">Delete</a></td>
+</tr>
+</table>
+</form>
+<br/>
+<a href="viewAll">Refresh page/View all Pets</a><br />
+<a href="../inputPet">Add a new pet</a>
+
+</body>
+</html>
