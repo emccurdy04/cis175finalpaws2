@@ -7,6 +7,13 @@
 */
 package dmacc.beans;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,12 +33,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 //@AllArgsConstructor
 //??@Embeddable
-//@Entity
-//@Table(name="customers")
+@Entity
+@Table(name="customers")
 public class Customer {
-	//@Id
+	@Id
 	//@GeneratedValue
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//private int customerId;
 	private long customerId;
 	private String firstName;
@@ -46,8 +53,11 @@ public class Customer {
 	
 	//instance variable to hold pet entity/object customer has scheduled to visit with
 	//??@Autowired
-	//@OneToOne
+	@OneToOne
 	//@OneToOne(fetch=FetchType.LAZY)//@JoinColumn(name='id')
+	//@OneToOne(cascade=CascadeType.MERGE, fetch=FetchType.LAZY, orphanRemoval=true)//@JoinColumn(name='id')
+	//@OneToOne(cascade=CascadeType.MERGE, fetch=FetchType.LAZY, orphanRemoval=true)//@JoinColumn(name='petId')
+	//@OneToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER, orphanRemoval=true)//@JoinColumn(name='petId')
 	private Pet selectedPet;
 	
 	//future add in instance variable to hold date of appointment to see pet

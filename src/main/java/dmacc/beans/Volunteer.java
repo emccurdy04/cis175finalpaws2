@@ -10,6 +10,7 @@ package dmacc.beans;
 import java.util.ArrayList;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -46,11 +47,11 @@ public class Volunteer {
 	private String phone;
 	
 	// future addition - since a Volunteer can foster more than 1 pet
-	//@OneToMany //?(MappedBy='pet')
+	@OneToMany //?(MappedBy='pet')
 	//@OneToMany(MappedBy='pet', fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	//@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER, orphanRemoval=true)
 	//@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.LAZY, orphanRemoval=true)
-	//private ArrayList<Pet> listOfFosterPets;
+	private ArrayList<Pet> listOfFosterPets;
 	//?? initialize ArrayList here?
 	//private ArrayList<Pet> listOfFosterPets = new ArrayList<>();
 
@@ -76,28 +77,28 @@ public class Volunteer {
 		this.phone = phone;
 	}
 
-//	/**
-//	 * Non-Default constructor - takes all parameters except volunteerId
-//	 * @param firstName
-//	 * @param lastName
-//	 * @param street
-//	 * @param city
-//	 * @param state
-//	 * @param zip
-//	 * @param phone
-//	 * @param listOfFosterPets
-//	 */
-//	public Volunteer(String firstName, String lastName, String street, String city, String state, String zip,
-//			String phone, ArrayList<Pet> listOfFosterPets) {
-//		super();
-//		this.firstName = firstName;
-//		this.lastName = lastName;
-//		this.street = street;
-//		this.city = city;
-//		this.state = state;
-//		this.zip = zip;
-//		this.phone = phone;
-//		this.listOfFosterPets = listOfFosterPets;
-//	}	
+	/**
+	 * Non-Default constructor - takes all parameters except volunteerId
+	 * @param firstName
+	 * @param lastName
+	 * @param street
+	 * @param city
+	 * @param state
+	 * @param zip
+	 * @param phone
+	 * @param listOfFosterPets
+	 */
+	public Volunteer(String firstName, String lastName, String street, String city, String state, String zip,
+			String phone, ArrayList<Pet> listOfFosterPets) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.phone = phone;
+		this.listOfFosterPets = listOfFosterPets;
+	}	
 
 }
