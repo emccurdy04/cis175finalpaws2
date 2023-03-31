@@ -10,7 +10,12 @@ package dmacc.beans;
 import java.util.ArrayList;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,13 +32,13 @@ import lombok.NoArgsConstructor;
 //@Builder
 @NoArgsConstructor
 //@AllArgsConstructor
-@Embeddable
-//@Entity(name="volunteers")
-//@Table(name="volunteers")
+//@Embeddable
+@Entity(name="volunteers")
+@Table(name="volunteers")
 public class Volunteer {
-	//@Id
+	@Id
 	//@GeneratedValue
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//private int volunteerId;
 	private long volunteerId;
 	private String firstName;
