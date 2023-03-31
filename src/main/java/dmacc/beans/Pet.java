@@ -10,6 +10,7 @@ package dmacc.beans;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -51,9 +52,9 @@ public class Pet {
 	private String breed;
 	private String gender;
 	
-	@Autowired //??
+	//@Autowired //??
 	//@ManyToOne
-	//@ManyToOne(fetch=FetchType.LAZY)//@JoinColumn(name='volunteerId')
+	@ManyToOne(fetch=FetchType.LAZY)//@JoinColumn(name='volunteerId')
 	private Volunteer fosterOwner;
 	
 	//future stages
