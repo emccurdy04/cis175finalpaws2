@@ -50,6 +50,7 @@ public class Customer {
 	private String state;
 	private String zip;
 	private String phone;
+	private String email;
 	
 	//instance variable to hold pet entity/object customer has scheduled to visit with
 	//??@Autowired
@@ -74,10 +75,11 @@ public class Customer {
 	 * @param state
 	 * @param zip
 	 * @param phone
+	 * @param email
 	 * @param selectedPet
 	 */
 	public Customer(String firstName, String lastName, String street, String city, String state, String zip,
-			String phone, Pet selectedPet) {
+			String phone, String email, Pet selectedPet) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -86,6 +88,7 @@ public class Customer {
 		this.state = state;
 		this.zip = zip;
 		this.phone = phone;
+		this.email = email;
 		this.selectedPet = selectedPet;
 	}
 
