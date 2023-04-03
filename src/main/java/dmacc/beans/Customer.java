@@ -66,6 +66,31 @@ public class Customer {
 	//?? have date & time of appointment separate or in same field/variable??
 
 	
+//	/**
+//	 * Non-Default constructor - takes all parameters except customerId
+//	 * @param firstName
+//	 * @param lastName
+//	 * @param street
+//	 * @param city
+//	 * @param state
+//	 * @param zip
+//	 * @param phone
+//	 * @param selectedPet
+//	 */
+//	public Customer(String firstName, String lastName, String street, String city, String state, String zip,
+//			String phone, Pet selectedPet) {
+//		super();
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.street = street;
+//		this.city = city;
+//		this.state = state;
+//		this.zip = zip;
+//		this.phone = phone;
+//		this.selectedPet = selectedPet;
+//	}
+
+	//new constructors after added email field/variable
 	/**
 	 * Non-Default constructor - takes all parameters except customerId
 	 * @param firstName
@@ -91,5 +116,30 @@ public class Customer {
 		this.email = email;
 		this.selectedPet = selectedPet;
 	}
+
+	/**
+	 * Non-Default constructor - takes all parameters except customerId & selectedPet
+	 * @param firstName
+	 * @param lastName
+	 * @param street
+	 * @param city
+	 * @param state
+	 * @param zip
+	 * @param phone
+	 * @param email
+	 */
+	public Customer(String firstName, String lastName, String street, String city, String state, String zip,
+			String phone, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.phone = phone;
+		this.email = email;
+	}
+
 
 }

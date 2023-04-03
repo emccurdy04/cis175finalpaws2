@@ -61,6 +61,54 @@ public class Volunteer {
 	//?? initialize ArrayList here?
 	//private ArrayList<Pet> listOfFosterPets = new ArrayList<>();
 
+//	/**
+//	 * Non-Default constructor - takes all parameters except volunteerId & ArrayList<Pet>
+//	 * @param firstName
+//	 * @param lastName
+//	 * @param street
+//	 * @param city
+//	 * @param state
+//	 * @param zip
+//	 * @param phone
+//	 */
+//	public Volunteer(String firstName, String lastName, String street, String city, String state, String zip,
+//			String phone) {
+//		super();
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.street = street;
+//		this.city = city;
+//		this.state = state;
+//		this.zip = zip;
+//		this.phone = phone;
+//	}
+//	
+//	/**
+//	 * Non-Default constructor - takes all parameters except volunteerId
+//	 * @param firstName
+//	 * @param lastName
+//	 * @param street
+//	 * @param city
+//	 * @param state
+//	 * @param zip
+//	 * @param phone
+//	 * @param listOfFosterPets
+//	 */
+//	public Volunteer(String firstName, String lastName, String street, String city, String state, String zip,
+//			String phone, ArrayList<Pet> listOfFosterPets) {
+//		super();
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.street = street;
+//		this.city = city;
+//		this.state = state;
+//		this.zip = zip;
+//		this.phone = phone;
+//		this.listOfFosterPets = listOfFosterPets;
+//	}
+
+
+	// new Non-Default constructors with new field/variable - email
 	/**
 	 * Non-Default constructor - takes all parameters except volunteerId & ArrayList<Pet>
 	 * @param firstName
@@ -84,6 +132,8 @@ public class Volunteer {
 		this.phone = phone;
 		this.email = email;
 	}
+
+
 
 	/**
 	 * Non-Default constructor - takes all parameters except volunteerId
@@ -109,6 +159,7 @@ public class Volunteer {
 		this.phone = phone;
 		this.email = email;
 		this.listOfFosterPets = listOfFosterPets;
-	}	
+	}
+	
 
 }
