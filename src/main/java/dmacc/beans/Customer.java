@@ -50,6 +50,7 @@ public class Customer {
 	private String state;
 	private String zip;
 	private String phone;
+	private String email;
 	
 	//instance variable to hold pet entity/object customer has scheduled to visit with
 	//??@Autowired
@@ -65,6 +66,31 @@ public class Customer {
 	//?? have date & time of appointment separate or in same field/variable??
 
 	
+//	/**
+//	 * Non-Default constructor - takes all parameters except customerId
+//	 * @param firstName
+//	 * @param lastName
+//	 * @param street
+//	 * @param city
+//	 * @param state
+//	 * @param zip
+//	 * @param phone
+//	 * @param selectedPet
+//	 */
+//	public Customer(String firstName, String lastName, String street, String city, String state, String zip,
+//			String phone, Pet selectedPet) {
+//		super();
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.street = street;
+//		this.city = city;
+//		this.state = state;
+//		this.zip = zip;
+//		this.phone = phone;
+//		this.selectedPet = selectedPet;
+//	}
+
+	//new constructors after added email field/variable
 	/**
 	 * Non-Default constructor - takes all parameters except customerId
 	 * @param firstName
@@ -74,10 +100,11 @@ public class Customer {
 	 * @param state
 	 * @param zip
 	 * @param phone
+	 * @param email
 	 * @param selectedPet
 	 */
 	public Customer(String firstName, String lastName, String street, String city, String state, String zip,
-			String phone, Pet selectedPet) {
+			String phone, String email, Pet selectedPet) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -86,7 +113,33 @@ public class Customer {
 		this.state = state;
 		this.zip = zip;
 		this.phone = phone;
+		this.email = email;
 		this.selectedPet = selectedPet;
 	}
+
+	/**
+	 * Non-Default constructor - takes all parameters except customerId & selectedPet
+	 * @param firstName
+	 * @param lastName
+	 * @param street
+	 * @param city
+	 * @param state
+	 * @param zip
+	 * @param phone
+	 * @param email
+	 */
+	public Customer(String firstName, String lastName, String street, String city, String state, String zip,
+			String phone, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.phone = phone;
+		this.email = email;
+	}
+
 
 }

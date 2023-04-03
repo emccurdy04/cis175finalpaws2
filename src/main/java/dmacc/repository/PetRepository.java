@@ -26,6 +26,9 @@ import dmacc.beans.Volunteer;
  */
 //JpaRepository<className, Integer> vs JpaRepository<className, Long> saw two 
 // different variations in tutorials w/o clear explanation of why Long vs Integer
+// but appears if Id related instance variable is Long use long if int use Integer
+// Found source that confirmed the id datatype of the domain class should match
+// the 2nd argument datatype. 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
 
