@@ -50,6 +50,7 @@ public class Volunteer {
 	private String state;
 	private String zip;
 	private String phone;
+	private String email;
 	
 	// future addition - since a Volunteer can foster more than 1 pet
 	@OneToMany //?(MappedBy='pet')
@@ -69,9 +70,10 @@ public class Volunteer {
 	 * @param state
 	 * @param zip
 	 * @param phone
+	 * @param email
 	 */
 	public Volunteer(String firstName, String lastName, String street, String city, String state, String zip,
-			String phone) {
+			String phone, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -80,6 +82,7 @@ public class Volunteer {
 		this.state = state;
 		this.zip = zip;
 		this.phone = phone;
+		this.email = email;
 	}
 
 	/**
@@ -91,10 +94,11 @@ public class Volunteer {
 	 * @param state
 	 * @param zip
 	 * @param phone
+	 * @param email
 	 * @param listOfFosterPets
 	 */
 	public Volunteer(String firstName, String lastName, String street, String city, String state, String zip,
-			String phone, ArrayList<Pet> listOfFosterPets) {
+			String phone, String email, ArrayList<Pet> listOfFosterPets) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -103,6 +107,7 @@ public class Volunteer {
 		this.state = state;
 		this.zip = zip;
 		this.phone = phone;
+		this.email = email;
 		this.listOfFosterPets = listOfFosterPets;
 	}	
 
