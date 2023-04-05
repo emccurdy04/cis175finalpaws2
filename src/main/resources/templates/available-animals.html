@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<title>P.A.W.S - Available Animals</title>
@@ -49,53 +49,50 @@
 			</div>
 			<div style="border: 1px black solid; border-radius: 2px; margin: 30px; padding:50px;">
 		<h2>Request a consultation</h2>
-		<form class="row g-3">
+		<form th:object="${newCustomer}" th:action="@{/consult-request}" method='POST' class="row g-3">
 			<div class="col-md-6">
-			  <label for="inputEmail4" class="form-label" required>First Name</label>
-			  <input type="text" class="form-control" id="inputEmail4">
+			  <label for="firstName" class="form-label" required>First Name</label>
+			  <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}">
 			</div>
 			<div class="col-md-6">
 			  <label for="inputPassword4" class="form-label">Last Name</label>
-			  <input type="text" class="form-control" id="inputPassword4">
+			  <input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}">
 			</div>
 			<div class="col-md-6">
-				<label for="inputEmail4" class="form-label">Email</label>
-				<input type="email" class="form-control" id="inputEmail4">
+				<label for="email" class="form-label">Email</label>
+				<input type="email" class="form-control" id="email" name="email" th:field="*{email}">
 			  </div>
 			  <div class="col-md-6">
-				<label for="inputEmail4" class="form-label">Phone Number</label>
-				<input type="email" class="form-control" id="inputEmail4">
+				<label for="phone" class="form-label">Phone Number</label>
+				<input type="email" class="form-control" id="phone" name="phone" th:field="*{phone}">
 			  </div>
 			<div class="col-12">
-			  <label for="inputAddress" class="form-label">Address</label>
-			  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+			  <label for="street" class="form-label">Address</label>
+			  <input type="text" class="form-control" id="street" name="street" th:field="*{street}">
 			</div>
 			<div class="col-12">
-			  <label for="inputAddress2" class="form-label">Address 2</label>
-			  <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+			  <label for="street2" class="form-label">Address 2</label>
+			  <input type="text" class="form-control" id="street" name="street2" th:field="*{street2}">
 			</div>
 			<div class="col-md-6">
-			  <label for="inputCity" class="form-label">City</label>
-			  <input type="text" class="form-control" id="inputCity">
+			  <label for="city" class="form-label">City</label>
+			  <input type="text" class="form-control" id="city" name="city" th:field="*{city}">
 			</div>
-			<div class="col-md-4">
-			  <label for="inputState" class="form-label">State</label>
-			  <select id="inputState" class="form-select">
-				<option selected>Choose...</option>
-				<option>...</option>
-			  </select>
-			</div>
+				<div class="col-md-4">
+				  <label for="state" class="form-label">State</label>
+				  <input type="text" class="form-control" id="state" name="state" th:field="*{state}">
+				</div>
 			<div class="col-md-2">
-			  <label for="inputZip" class="form-label">Zip</label>
-			  <input type="text" class="form-control" id="inputZip">
+			  <label for="zip" class="form-label">Zip</label>
+			  <input type="text" class="form-control" id="zip" name="zip" th:field="*{zip}">
 			</div>
 			<div class="col-12">
-			  <div class="form-check" style="padding-left:0px;">
+			  <!-- <div class="form-check" style="padding-left:0px;">
 				<label for="cars">Which friend are you interested in meeting?</label><br>
-					<select name="paws" id="paws">
-					<option value="volvo">Volvo</option>
+					<select th:field="*{pet.petName}">
+							<option th:each="pet: ${Pet}" th:value="${pet.firstName}" th:text="${pet.firstName}" />
 					</select>
-			  </div>
+			  </div> -->
 			</div>
 			<div class="col-12">
 			  <button type="submit" class="btn btn-primary">Submit</button>
