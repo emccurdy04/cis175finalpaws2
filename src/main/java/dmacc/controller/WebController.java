@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dmacc.repository.PetRepository;
 import dmacc.beans.Pet;
 
+import dmacc.repository.CustomerRepository;
+import dmacc.beans.Customer;
 /**
  * Group 8 Final Project - Pet Adoption Website Service (P.A.W.S.) v2
  * 
@@ -37,6 +39,8 @@ import dmacc.beans.Pet;
 public class WebController {
 	@Autowired
 	PetRepository repo;
+	@Autowired
+	CustomerRepository custRepo;
 	
 	
 	/**
@@ -71,6 +75,21 @@ public class WebController {
 	public String availableAnimals(){
 		return "available-animals";
 	}
+	
+	@GetMapping("/consult-request")
+	public String addNewCustomer(Model model) {
+		Customer customer = new Customer();
+		model.addAttribute("newCustomer", customer);
+		return "input";
+		//return "input.html";
+	}
+	
+	@PostMapping("/consult-request")
+	public String addNewCustomer(@ModelAttribute Customer customer, Model model) {
+		custRepo.save(customer);
+		return "success";
+	}
+
 	
 	//@RequestMapping("/volunteer")
 	@RequestMapping("/volunteer.html")
