@@ -8,7 +8,7 @@
 <header><h1>P.A.W.S. Generic Pets results page</h1><br/>
 <h2>View all Pets</h2></header>
 
-<form >
+<form name="viewPetForm">
 <table>
 <tr th:each="currentPet : ${pets}">
 	<td th:text="${currentPet.petId}" />
@@ -25,6 +25,8 @@
 	<td th:text="${currentPet.volunteer.state}" />
 	<td th:text="${currentPet.volunteer.zip}" />
 	<td th:text="${currentPet.volunteer.phone}" />
+	<td th:text="${currentPet.volunteer.email}" />
+	<!-- ??not sure if this is needed <td th:text="${currentPet.volunteer.listOfFosterPets}" /> -->
 	<!-- <td><a th:href="@{/edit/{id}(id=${currentPet.petId})}">Edit</a></td>
 	<td><a th:href="@{/delete/{id}(id=${currentPet.petId})}">Delete</a></td> -->
 	<td><a th:href="@{/edit/{petId}(id=${currentPet.petId})}">Edit</a></td>
@@ -32,9 +34,38 @@
 </tr>
 </table>
 </form>
+
+<form name="viewVolunteerForm">
+<table>
+<tr th:each="currentVolunteer : ${volunteers}">
+	<td th:text="${currentVolunteer.volunteerId}" />
+	<td th:text="${currentPet.petName}" />
+	<td th:text="${currentPet.breed}" />
+	<td th:text="${currentPet.gender}" />
+	<!-- Volunteer information of person who is fostering pet: -->
+	<td th:text="Volunteer information of person who is fostering pet:" />
+	<!-- <td th:text="${currentPet.fosterOwner.volunteerId}" /> -->
+	<td th:text="${currentVolunteer.firstName}" />
+	<td th:text="${currentVolunteer.lastName}" />
+	<td th:text="${currentVolunteer.street}" />
+	<td th:text="${currentVolunteer.city}" />
+	<td th:text="${currentVolunteer.state}" />
+	<td th:text="${currentVolunteer.zip}" />
+	<td th:text="${currentVolunteer.phone}" />
+	<td th:text="${currentVolunteer.email}" />
+	<!-- ??May need to change how below ArrayList is resulted to display in rows for each pet -->
+	<td th:text="${currentVolunteer.listOfFosterPets}" />
+	<td><a th:href="@{/edit/{volunteerId}(id=${currentVolunteer.volunteerId})}">Edit volunteer</a></td>
+	<td><a th:href="@{/delete/{volunteerId}(id=${currentVolunteer.volunteerId})}">Delete volunteer</a></td>
+</tr>
+</table>
+</form>
 <br/>
 <a href="viewAll">Refresh page/View all Pets</a><br />
-<a href="../inputPet">Add a new pet</a>
-
+<a href="../inputPet">Add a new pet</a><br />
+<a href="viewAllVolunteers">View all Volunteers</a><br />
+<a href="../addVolunteer">Add a new volunteer</a>
+<a href="viewAllCustomers">View all customers</a><br />
+<a href="../addCustomers">Add a new customer</a>
 </body>
 </html>
