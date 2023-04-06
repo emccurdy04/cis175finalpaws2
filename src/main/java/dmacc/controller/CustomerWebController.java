@@ -87,7 +87,7 @@ public class CustomerWebController {
 		return "input";
 	}
 	
-	@DeleteMapping("/customer/{customerId")
+	@DeleteMapping("/customer/{customerId}")
 	// ?? unsure if should use long id vs long customerId in next line - start w/ latter version
 	//public void deleteCustomer(@PathVariable("customerId") long id) {
 	public void deleteCustomer(@PathVariable("customerId") long customerId) {
