@@ -34,16 +34,12 @@
 </tr>
 </table>
 </form>
-
+<br/>
 <form name="viewVolunteerForm">
 <table>
 <tr th:each="currentVolunteer : ${volunteers}">
+	<td th:text="Volunteer information:" />
 	<td th:text="${currentVolunteer.volunteerId}" />
-	<td th:text="${currentPet.petName}" />
-	<td th:text="${currentPet.breed}" />
-	<td th:text="${currentPet.gender}" />
-	<!-- Volunteer information of person who is fostering pet: -->
-	<td th:text="Volunteer information of person who is fostering pet:" />
 	<!-- <td th:text="${currentPet.fosterOwner.volunteerId}" /> -->
 	<td th:text="${currentVolunteer.firstName}" />
 	<td th:text="${currentVolunteer.lastName}" />
@@ -60,12 +56,34 @@
 </tr>
 </table>
 </form>
+<br />
+<form name="viewVolunteerForm">
+<table>
+<tr th:each="currentCustomer : ${customers}">
+	<td th:text="Customer information:" />
+	<td th:text="${currentCustomer.customerId}" />
+	<!-- <td th:text="${currentPet.fosterOwner.volunteerId}" /> -->
+	<td th:text="${currentCustomer.firstName}" />
+	<td th:text="${currentCustomer.lastName}" />
+	<td th:text="${currentCustomer.street}" />
+	<td th:text="${currentCustomer.city}" />
+	<td th:text="${currentCustomer.state}" />
+	<td th:text="${currentCustomer.zip}" />
+	<td th:text="${currentCustomer.phone}" />
+	<td th:text="${currentCustomer.email}" />
+	<!-- ??May need to change how below ArrayList is resulted to display in rows for each pet -->
+	<td th:text="${currentVolunteer.selectedPet}" />
+	<td><a th:href="@{/edit/{customerId}(id=${currentCustomer.customerId})}">Edit customer</a></td>
+	<td><a th:href="@{/delete/{customerId}(id=${currentCustomer.customerId})}">Delete customer</a></td>
+</tr>
+</table>
+</form>
 <br/>
 <a href="viewAll">Refresh page/View all Pets</a><br />
 <a href="../inputPet">Add a new pet</a><br />
 <a href="viewAllVolunteers">View all Volunteers</a><br />
 <a href="../addVolunteer">Add a new volunteer</a>
 <a href="viewAllCustomers">View all customers</a><br />
-<a href="../addCustomers">Add a new customer</a>
+<a href="../addCustomer">Add a new customer</a>
 </body>
 </html>

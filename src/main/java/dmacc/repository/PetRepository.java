@@ -7,6 +7,8 @@
 */
 package dmacc.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -31,5 +33,15 @@ import dmacc.beans.Volunteer;
 // the 2nd argument datatype. 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
+
+	Volunteer findByFosterOwner(long volunteerId);
+
+	List<Pet> findByPetType(String petType);
+
+	List<Pet> findPetByGender(String gender);
+
+	List<Pet> findPetByBreed(String breed);
+
+	List<Pet> findPetByName(String petName);
 
 }
