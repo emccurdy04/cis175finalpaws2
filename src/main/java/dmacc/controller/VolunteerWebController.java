@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import dmacc.beans.Volunteer;
-import dmacc.repository.VolunteerRepository;
 import dmacc.service.VolunteerService;
 
 /**
@@ -41,7 +40,7 @@ public class VolunteerWebController {
 	//@Autowired
 	//VolunteerRepository volunteerRepo;
 	
-	// added below method & ? consider commended alterations for next method for use
+	// added below method & ? consider commented alterations for next method for use
 	// in Spring MVC Web controller
 	@GetMapping("/viewAllVolunteers") //method to be run when /viewAllVolunteers link is called
 	// need to create this link on 
@@ -54,7 +53,7 @@ public class VolunteerWebController {
 	}
 	
 	@GetMapping("/viewAllVolunteers")
-	//@GetMapping("/volunteers")
+	//@GetMapping("/volunteers") //?? unsure which version of GetMapping URI should use here
 	public List<Volunteer> getAllVolunteers(){
 	//public String getAllVolunteers(){
 		//List<Volunteer> volunteers = volunteerService.getAllVolunteers()
@@ -64,7 +63,7 @@ public class VolunteerWebController {
 		// return "results";
 		return volunteerService.getAllVolunteers();
 	}
-	
+		
 	@GetMapping("/volunteer/{volunteerId}")
 	// ?? unsure if should use long id vs long volunteerId in next line - start w/ latter version
 	//public Volunteer getVolunteer(@PathVariable("volunteerId") long id) {
@@ -72,12 +71,41 @@ public class VolunteerWebController {
 		return volunteerService.getVolunteerById(volunteerId);
 	}
 	
+	//?? not sure if above public Volunteer getVolunteer(@PathVariable("volunteerId") long volunteerId) method
+	// needs changed to below method for use when editing volunteer in Spring MVC Web controller
+	// or if below method just needs to be added to the VolunteerWebController to retrieve data from
+	// webpage for editing - if volunteer w/ specified id is not found then create null object to fill
+	// with data pulled from webpage
+	@GetMapping("/edit/{volunteerId}")
+	public String editVolunteer(@PathVariable("volunteerId") long volunteerId, Model model) {
+		Volunteer volunteer = volunteerService.getVolunteerById(volunteerId);
+		// ??would need to change above line to below if can't create method in VolunteerService to address
+		// creation of empty Volunteer object to put in data from web page for new Volunteer if 
+		// volunteerId that was searched for is not found
+		//??Volunteer volunteer = volunteerRepo.findById(volunteerId).orElse(null);
+		model.addAttribute("newVolunteer", volunteer);
+		return "input";
+	}
+	
+	//?? re: above @DeleteMapping version of deleteVolunteer method vs below @GetMapping version
 	@DeleteMapping("/volunteer/{volunteerId}")
 	// ?? unsure if should use long id vs long volunteerId in next line - start w/ latter version
 	//public void deleteVolunteer(@PathVariable("volunteerId") long id) {
 	public void deleteVolunteer(@PathVariable("volunteerId") long volunteerId) {
 		volunteerService.deleteVolunteerById(volunteerId);
 	}
+	
+	//?? re: above @DeleteMapping version of deleteVolunteer method vs below @GetMapping version
+	// that calls it - if used committed out version w/o call to above method line of code will 
+	// need to add @Autowired VolunteerRepository volunteerRepo creation
+	@GetMapping("/delete/{volunteerId}")
+	public String deleteVolunteer(@PathVariable("volunteerId") long volunteerId, Model model) {
+		//Volunteer volunteer = volunteerRepo.findById(volunterId).orElse(null);
+		//volunteerRepo.delete(volunteer);
+		volunteerService.deleteVolunteerById(volunteerId);
+		return viewAllVolunteers(model);
+	}
+	
 	
 	//@PostMapping("/addVolunteer") // ?? this version vs below
 	@PostMapping("/volunteer")
@@ -101,10 +129,22 @@ public class VolunteerWebController {
 		return viewAllVolunteers(model);
 	}
 	
+	//??? re: below method
 	@PutMapping("/volunteer")
 	public void editVolunteer(@RequestBody Volunteer volunteer) {
 		volunteerService.saveVolunteerEdit(volunteer);
 	}
+	
+	//??? above PutMapping version of editVolunteer method need changed to below version for 
+	// ???Spring MVC Webcontroller or both??
+	@PostMapping("/edit/{volunteerId}")
+	//public String editVolunteer(@RequestBody Volunteer volunteer) {
+	public String editVolunteer(Volunteer volunteer, Model model) {
+		volunteerService.saveVolunteerEdit(volunteer);
+		return viewAllVolunteers(model);
+	}
+	
+	
 	
 	// ?? In future create a method that gets a randomly selected volunteer info to display on volunteer page
 	// ?? to feature as a volunteer of the month. 

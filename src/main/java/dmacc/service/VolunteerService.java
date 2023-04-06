@@ -45,6 +45,18 @@ public class VolunteerService {
 		volunteerRepo.deleteById(volunteerId);
 	}
 	
+	/**
+	 * Method to search for Volunteer by petId to get volunteer contact info
+	 * for use in future when customer requests time to set up to visit pet
+	 */
+	public Volunteer getVolunteerByPet(long petId) {
+		return volunteerRepo.findByFosterPet(petId);
+	}
+	
+	public Volunteer getVolunteerByEmail(String email) {
+		return volunteerRepo.findVolunteerByEmail(email);
+	}
+	
 	// ?? In future create a method that randomly selects a volunteer so volunteer info can
 	// ?? be displayed on volunteer page to be featured as the volunteer of the month. 
 	//public Volunteer selectRandomVolunteerById() {

@@ -124,7 +124,9 @@ public class WebController {
 	 * Method to direct to webpage to view all Pet entity/objects in PAWS DB pets table
 	 * - use 2nd version if want both home/index or viewAll paths to go to this webpage
 	 */
-	@GetMapping("/viewAll")
+	// version in lab w/o / in front of viewAll will see if helps white label error page issues
+	@GetMapping("viewAll") 
+	//@GetMapping("/viewAll")
 	//@GetMapping({"/", "/viewAll"})
 	public String viewAllPets(Model model) {
 		if(repo.findAll().isEmpty()) {
@@ -190,5 +192,14 @@ public class WebController {
 		repo.delete(pet);
 		return viewAllPets(model);
 	}
+	
+	// WebController methods for searching pet by specified field value
+	//@GetMapping("pet/petType/{petType}")
+	//public ResponseEntity<List<Pet>> getPetByPetType(@PathVariable(name="petType") String petType){
+	//log.infor("Getting list of Pet(s) of petType= {} from the DB.", petType);
+	//List<Pet> pets = petService.getPetByType(petType);
+	//return new ResponseEntity<>(pets, HttpStatus.OK);
+	//}
+
 
 }

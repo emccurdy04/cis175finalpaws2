@@ -51,7 +51,7 @@ public class CustomerWebController {
 	}
 	
 	//?? not sure if below method needs to be changed as shown in commented lines for use in 
-	// SPring MVC Web controller
+	// Spring MVC Web controller
 	//@GetMapping("/viewAllCustomers")
 	@GetMapping("/customers")
 	public List<Customer> getAllCustomers(){
@@ -71,12 +71,39 @@ public class CustomerWebController {
 		return customerService.getCustomerById(customerId);
 	}
 	
+	//?? not sure if above Customer getCustomer(@PathVariable("customerId") long customerId) method
+	// needs changed to below method for use when editing customer in Spring MVC Web controller
+	// or if below method just needs to be added to the CustomerWebController to retrieve data from
+	// webpage for editing - if customer w/ specified id is not found then create null object to fill
+	// with data pulled from webpage
+	@GetMapping("/edit/{customerId}")
+	public String editCustomer(@PathVariable("customerId") long customerId, Model model) {
+		Customer customer = customerService.getCustomerById(customerId);
+		// ??would need to change above line to below if can't create method in CustomerService to address
+		// creation of empty Customer object to put in data from web page for new Customer if 
+		// customerId that was searched for is not found
+		//??Customer customer = customerRepo.findById(customerId).orElse(null);
+		model.addAttribute("newCustomer", customer);
+		return "input";
+	}
+	
 	@DeleteMapping("/customer/{customerId")
 	// ?? unsure if should use long id vs long customerId in next line - start w/ latter version
 	//public void deleteCustomer(@PathVariable("customerId") long id) {
 	public void deleteCustomer(@PathVariable("customerId") long customerId) {
 		customerService.deleteCustomerById(customerId);
 	}
+	
+	//?? re: above @DeleteMapping version of deleteCustomer method vs below @GetMapping version
+	// that calls it - if used committed out version w/o call to above method line of code will 
+	// need to add @Autowired CustomerRepository customerRepo creation
+	@GetMapping("/delete/{customerId}")
+	public String deleteCustomer(@PathVariable("customerId") long customerId, Model model) {
+		//Customer customer = customerRepo.findById(customerId).orElse(null);
+		//customerRepo.delete(customer);
+		customerService.deleteCustomerById(customerId);
+		return viewAllCustomers(model);
+	}	
 	
 	@PostMapping("/customer")
 	public void addCustomer(@RequestBody Customer customer) {
