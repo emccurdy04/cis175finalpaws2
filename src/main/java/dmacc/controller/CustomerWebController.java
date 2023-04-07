@@ -39,8 +39,7 @@ public class CustomerWebController {
 	//@Autowired
 	//CustomerRepository customerRepo;
 	
-	// added below method & ? consider commented alterations for public List<Customer> getAllCustomers()
-	// method for use in Spring MVC Web controller
+	// below method now working - routing to results.html page
 	@GetMapping("/viewAllCustomers") //method to be run when /viewAllCustomers link is called 
 	public String viewAllCustomers(Model model) {
 //		if(customerService.getAllCustomers().isEmpty()) {
@@ -86,6 +85,14 @@ public class CustomerWebController {
 		//??Customer customer = customerRepo.findById(customerId).orElse(null);
 		model.addAttribute("newCustomer", customer);
 		return "input";
+	}
+	
+	@PostMapping("/update/{customerId}")
+	public String updateCustomer(@ModelAttribute("customer") Customer customer, Model model) {
+	//public String addVolunteer(@ModelAttribute Customer customer, Model model) {
+		//customerRepo.save(customer); // ?? does below replace this line??
+		customerService.saveCustomerEdit(customer);
+		return viewAllCustomers(model);
 	}
 	
 	@DeleteMapping("/customer/{customerId}")
@@ -134,7 +141,8 @@ public class CustomerWebController {
 		customerService.saveCustomerEdit(customer);
 	}
 	
-	// moved these from WebController
+	// moved these 2 methods from WebController 
+	// methods for dealing with - available-animals page form to POST newCustomer object
 	@GetMapping("/consult-request")
 	public String addNewCustomer(Model model) {
 		Customer customer = new Customer();
