@@ -40,8 +40,8 @@ public class VolunteerWebController {
 	//@Autowired
 	//VolunteerRepository volunteerRepo;
 	
-	// added below method & ? consider commented alterations for next method for use
-	// in Spring MVC Web controller
+	// ? consider commented alterations for next method for use in Spring MVC Web controller?
+	// below method now working - routing to results.html page & displays message there if DB empty
 	@GetMapping("/viewAllVolunteers") //method to be run when /viewAllVolunteers link is called
 	// need to create this link on 
 	public String viewAllVolunteers(Model model) {
@@ -52,7 +52,7 @@ public class VolunteerWebController {
 //		}
 		model.addAttribute("volunteers", volunteerService.getAllVolunteers());
 		return "results";
-		//return "viewVolunteers"; //?  make new/separate pages for viewing Volunteers/Customers/Pets
+		//return "viewVolunteers"; //? make new/separate pages for viewing Volunteers/Customers/Pets
 	}
 	
 //	@GetMapping("/viewAllVolunteers")
@@ -91,6 +91,12 @@ public class VolunteerWebController {
 		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
 	
+	@PostMapping("/update/{volunteerId}")
+	public String updateVolunteer(@ModelAttribute("volunteer") Volunteer volunteer, Model model) {
+		volunteerService.saveVolunteerEdit(volunteer);
+		return viewAllVolunteers(model);
+	}
+	
 	//?? re: above @DeleteMapping version of deleteVolunteer method vs below @GetMapping version
 	//@DeleteMapping("/delete/{volunteerId}") //?? this or below path???
 	@DeleteMapping("/volunteer/{volunteerId}")
@@ -118,6 +124,13 @@ public class VolunteerWebController {
 //		volunteerService.saveVolunteerEdit(volunteer);
 //	}
 	
+	@GetMapping("/addVolunteer")
+	public String inputVolunteer(Model model) {
+		Volunteer volunteer = new Volunteer();
+		model.addAttribute("newVolunteer", volunteer);
+		return "input";
+	}
+	
 	// ?? below two methods are alternatives of above for use in Spring MVC web controller 
 	@GetMapping("/volunteer")
 	//@GetMapping("/volunteer.html")
@@ -130,8 +143,8 @@ public class VolunteerWebController {
 		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
 	
-	//@PostMapping("/volunteer")
-	@PostMapping("/addVolunteer")
+	@PostMapping("/volunteer")
+	//@PostMapping("/addVolunteer")
 	public String addVolunteer(@ModelAttribute("newVolunteer") Volunteer volunteer, Model model) {
 	//public String addVolunteer(@ModelAttribute("volunteer") Volunteer volunteer, Model model) {
 	//public String addVolunteer(@ModelAttribute Volunteer volunteer, Model model) {
@@ -152,14 +165,15 @@ public class VolunteerWebController {
 		volunteerService.saveVolunteerEdit(volunteer);
 	}
 	
-	//??? above PutMapping version of editVolunteer method need changed to below version for 
-	// ???Spring MVC Webcontroller or both??
-	@PostMapping("/edit/{volunteerId}")
-	//public String editVolunteer(@RequestBody Volunteer volunteer) {
-	public String editVolunteer(Volunteer volunteer, Model model) {
-		volunteerService.saveVolunteerEdit(volunteer);
-		return viewAllVolunteers(model);
-	}
+//	//??? above PutMapping version of editVolunteer method need changed to below version for 
+//	// ???Spring MVC Webcontroller or both??
+//	//@PostMapping("/edit/{volunteerId}")
+//	@PostMapping("/update/{volunteerId}")
+//	//public String editVolunteer(@RequestBody Volunteer volunteer) {
+//	public String editVolunteer(Volunteer volunteer, Model model) {
+//		volunteerService.saveVolunteerEdit(volunteer);
+//		return viewAllVolunteers(model);
+//	}
 	
 	
 	

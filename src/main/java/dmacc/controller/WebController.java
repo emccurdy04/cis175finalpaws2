@@ -167,19 +167,34 @@ public class WebController {
 		//return "results.html";
 	}
 	
-	
-	@GetMapping("/inputPet")
-	public String addNewPet(Model model) {
+		
+	@GetMapping("/addPet")
+	//@GetMapping("/inputPet")
+	public String inputPet(Model model) {
 		Pet pet = new Pet();
 		model.addAttribute("newPet", pet);
 		return "input";
-		//return "input.html";
 	}
 	
-	
-	@PostMapping("/inputPet")
-	public String addNewPet(@ModelAttribute Pet pet, Model model) {
+	@PostMapping("/updatePet")
+	//@PostMapping("/inputPet")
+	public String addNewPet(@ModelAttribute("pet") Pet pet, Model model) {
 		repo.save(pet);
+		//return viewAllPets(model);
+		return viewAllPets(model);
+	}
+	
+//	@GetMapping("/addPet")
+//	public String addPet(Model model) {
+//		Pet pet = new Pet();
+//		model.addAttribute("newPet", pet);
+//		return "input";
+//	}
+	
+	//@PostMapping("/update/{petId}")
+	@PostMapping("/addPet")
+	public String addPet(@ModelAttribute("pet")Pet pet, Model model) {
+		petService.savePetEdit(pet);
 		return viewAllPets(model);
 	}
 	

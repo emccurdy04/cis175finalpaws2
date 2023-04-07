@@ -5,10 +5,13 @@
 <title>Group 8 Final Project - Pet Adoption Website Service (P.A.W.S.) v2</title>
 </head>
 <body>
-<header><h1>P.A.W.S. Generic Pets input page</h1><br/>
-<h2>Insert a new Pet or Edit Pet</h2></header>
+<header><h1>P.A.W.S. Generic Pets input page</h1><br/></header>
 
-<form th:object="${newPet}" th:action="@{/update/{petId}(id=${newPet.petId})}"
+<div th:switch="${newPet}">
+<h3 th:case="null">No pet info submitted</h3>
+<div th:case="*">
+<h2>Pets: Insert a new Pet or Edit Pet</h2>
+<form name="addPetForm" th:object="${newPet}" th:action="@{/update/{petId}(id=${newPet.petId})}"
  method='POST'>
 <!-- Adding in the th:field="*{variableName}" to each of the below input lines
 to pass the object over to the input.html & parse the object data into the
@@ -18,9 +21,12 @@ Enter/Update Pet's type: <input name="petType" size="20" th:field="*{petType}"><
 Enter/Update Pet's breed: <input name="breed" size="20" th:field="*{breed}"><br/>
 Enter/Update Pet's gender: <input name="gender" size="20" th:field="*{gender}"><br/>
 <br/>
+Enter/Update Pet's foster owner info:<input name="fosterOwner" size="50" th:field="*{fosterOwner}"><br/>
 <!-- Since volunteer is no longer embedded into Pet class but now is table join of pet.fosterOwner
 to volunteer.volunteerId in DB likely need to change below  - alter to call to volunteer related 
 controller/service layers-->
+<!-- Unsure if can be submitted together or if one form can call next form for volunteer? -->
+<!-- 
 Enter/Update Volunteer information of person who is fostering pet: <br>
 Enter/Update Volunteer's first name: <input name="volunteer.firstName" size="24" th:field="*{volunteer.firstName}">
 Enter/Update Volunteer's last name: <input name="volunteer.lastName" size="24" th:field="*{volunteer.lastName}">
@@ -31,16 +37,71 @@ City: <input name="volunteer.city" size="20" th:field="*{volunteer.city}"><br/>
 State: <input name="volunteer.state" size="20" th:field="*{volunteer.state}"><br/>
 Zip: <input name="volunteer.zip" size="9" th:field="*{volunteer.zip}"><br/>
 Phone Number: <input name="volunteer.phone" size="15" th:field="*{volunteer.phone}"><br/>
-Email: <input name="volunteer.email" size="50" th:field="*{volunteer.email}" >
-
+Email: <input name="volunteer.email" size="50" th:field="*{volunteer.email}"><br/> -->
+<br/>
 <input name="submit" type="submit" value="submit" />
 </form>
-<a href="viewAll">View all Pets</a>
+</div>
+</div>
+<br />
+<div th:switch="${newVolunteer}">
+<h3 th:case="null">No volunteers information submitted</h3>
+<div th:case="*">
+<h3>Volunteers: Insert a new Volunteer or Edit Volunteer</h3>
+<form name="addVolunteerForm" th:object="${newVolunteer}" th:action="@{/update/{volunteerId}(id=${newVolunteer.volunteerId})}"
+ method='POST'>
+Enter/Update Volunteer information: <br>
+Enter/Update Volunteer's first name: <input name="firstName" size="24" th:field="*{firstName}"><br/>
+Enter/Update Volunteer's last name: <input name="lastName" size="24" th:field="*{lastName}"><br/>
+<br/>
+Enter/Update Vounteer's address: <br>
+Street: <input name="street" size="50" th:field="*{street}"><br/>
+City: <input name="city" size="20" th:field="*{city}"><br/>
+State: <input name="state" size="20" th:field="*{state}"><br/>
+Zip: <input name="zip" size="9" th:field="*{zip}"><br/>
+Phone Number: <input name="phone" size="15" th:field="*{phone}"><br/>
+Email: <input name="email" size="50" th:field="*{email}" ><br/>
+<br/>
+Foster Pets: <input name="listOfFosterPets" th:field="*{listOfFosterPets}"><br/>
+<br/>
+<input name="submit" type="submit" value="submit" /> 
+</form>
+</div>
+</div>
+<br />
+<div th:switch="${newCustomer}">
+<h3 th:case="null">No customers information submitted</h3>
+<div th:case="*">
+<h3>Customers: Insert a new Customer or Edit Customer</h3>
+<form name="addCustomerForm" th:object="${newCustomer}" th:action="@{/update/{customerId}(id=${newCustomer.customerId})}"
+ method='POST'>
+Enter/Update Customer information: <br>
+Enter/Update Customer's first name: <input name="firstName" size="24" th:field="*{firstName}"><br/>
+Enter/Update Customer's last name: <input name="lastName" size="24" th:field="*{lastName}"><br/>
+<br/>
+Enter/Update Customer's address: <br>
+Street: <input name="street" size="50" th:field="*{street}"><br/>
+City: <input name="city" size="20" th:field="*{city}"><br/>
+State: <input name="state" size="20" th:field="*{state}"><br/>
+Zip: <input name="zip" size="9" th:field="*{zip}"><br/>
+Phone Number: <input name="phone" size="15" th:field="*{phone}"><br/>
+Email: <input name="email" size="50" th:field="*{email}" ><br/>
+Selected Pet: <input name="selectedPet" size="50" th:field="*{selectedPet}" ><br/>
+<!--?have method to select pet & form grabs petId to identify pet object selected
+by customer??? th:field="*{selectedPet} (id=${pet.petId})" -->
+<br/>
+<input name="submit" type="submit" value="submit" />
+</form>
+</div>
+</div>
+<br/>
+<a href="viewAll">View all Pets</a><br />
 <!-- might need to switch above to below version & change related WebController's method @GetMapping
 URI expression to match this html page anchor link. 
 <a href="viewAllPets">View all Pets</a> -->
+<a href="../addPet">Add a new Pet</a><br />
 <a href="viewAllVolunteers">View all Volunteers</a><br />
-<a href="../addVolunteer">Add a new volunteer</a>
+<a href="../addVolunteer">Add a new volunteer</a><br />
 <a href="viewAllCustomers">View all customers</a><br />
 <a href="../addCustomer">Add a new customer</a>
 </body>
