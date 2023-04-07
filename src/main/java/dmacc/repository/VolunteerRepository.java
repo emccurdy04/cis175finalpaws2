@@ -26,7 +26,7 @@ import dmacc.beans.Volunteer;
 @Repository
 public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
 
-	Volunteer findByFosterPet(long petId);
+	//Volunteer findByFosterPet(long petId);
 
 	Volunteer findVolunteerByEmail(String email);
 

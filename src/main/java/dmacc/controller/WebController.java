@@ -7,6 +7,8 @@
 */
 package dmacc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dmacc.repository.PetRepository;
+import dmacc.service.PetService;
 import dmacc.beans.Pet;
 
 import dmacc.repository.CustomerRepository;
@@ -41,7 +44,9 @@ public class WebController {
 	PetRepository repo;
 	@Autowired
 	CustomerRepository custRepo;
-	
+	@Autowired
+	PetService petService;
+
 	
 	/**
 	 * Method to direct to home/index page
@@ -76,24 +81,47 @@ public class WebController {
 		return "available-animals";
 	}
 	
-	@GetMapping("/consult-request")
-	public String addNewCustomer(Model model) {
-		Customer customer = new Customer();
-		model.addAttribute("newCustomer", customer);
-		return "input";
-		//return "input.html";
+	
+	//@GetMapping("/redirect")
+	//public String redirect() {
+		//return "redirect:PageBeingDirectedTo";
+	//}
+	//?? w/ above method for redirects from landing page?? then using below method to direct
+	// to specific page?? & adding attribute tags to webpage 
+	// see https://www.tutorialspoint.com/springmvc/springmvc_page_redirection.htm
+	// ??put on webpage a <form method="GET" action="/index.redirect"> 
+	// ??<input type="submit" value="Redirect Page" > 
+	@GetMapping("/available-animals.html")
+	public String availableAnimalsPage(Model model) {
+	///public String availableAnimalsPage() {
+		if (petService.getAllPets().isEmpty()) {
+			return "no pets found in DB";
+			//return "error";
+		}
+		model.addAttribute("pets", petService.getAllPets());
+		return "available-animals";
 	}
 	
-	@PostMapping("/consult-request")
-	public String addNewCustomer(@ModelAttribute Customer customer, Model model) {
-		custRepo.save(customer);
-		return "success";
-	}
+	//Commenting these Customer related methods out in WebController & moving to CustomerWebController
+//	@GetMapping("/consult-request")
+//	public String addNewCustomer(Model model) {
+//		Customer customer = new Customer();
+//		model.addAttribute("newCustomer", customer);
+//		return "input";
+//		//return "input.html";
+//	}
+//	
+//	@PostMapping("/consult-request")
+//	public String addNewCustomer(@ModelAttribute Customer customer, Model model) {
+//		custRepo.save(customer);
+//		return "success";
+//	}
 
-	
+	//??Comment this Volunteer related method out in WebController & move to VolunteerWebController
+	// ?? or leave just the basic navigation to the page here??
 	//@RequestMapping("/volunteer")
 	@RequestMapping("/volunteer.html")
-	public String volunteer() {
+	public String volunteerPage() {
 		return "volunteer";
 	}
 	
@@ -129,11 +157,12 @@ public class WebController {
 	//@GetMapping("/viewAll")
 	//@GetMapping({"/", "/viewAll"})
 	public String viewAllPets(Model model) {
-		if(repo.findAll().isEmpty()) {
-			return addNewPet(model);
-		}
-		
-		model.addAttribute("pet", repo.findAll());
+//		if(repo.findAll().isEmpty()) {
+//			//return addNewPet(model);
+//			return "no pets found in DB";
+//		}
+//		
+		model.addAttribute("pets", repo.findAll());
 		return "results";
 		//return "results.html";
 	}
@@ -201,5 +230,22 @@ public class WebController {
 	//return new ResponseEntity<>(pets, HttpStatus.OK);
 	//}
 
+	@GetMapping("/{petType}") // ?? which @GetMapping version?
+	//@GetMapping("pet/petType/{petType}")
+	//@GetMapping("/petType/{petType}")
+	//@GetMapping("/pet/{petType}")
+	//public List<Pet> getPetByType(String petType) {
+	//public String getPetByType(String petType) {
+	//public String getPetByType(Model model) {
+	public String getPetByType(@PathVariable("petType") String petType, Model model) {
+		if(petService.getPetByType(petType).isEmpty()) {
+			return viewAllPets(model);
+		}
+		//List<Pet> selectedPets = petService.getPetByType(petType);
+		//return displayPets;
+		//return results;
+		model.addAttribute("selectedPets", petService.getPetByType(petType));
+		return "petList";
+	}
 
 }

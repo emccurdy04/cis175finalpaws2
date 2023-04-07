@@ -45,14 +45,14 @@ public class VolunteerService {
 		volunteerRepo.deleteById(volunteerId);
 	}
 	
-	/**
-	 * Method to search for Volunteer by petId to get volunteer contact info
-	 * for use in future when customer requests time to set up to visit pet
-	 */
-	public Volunteer getVolunteerByPet(long petId) {
-		return volunteerRepo.findByFosterPet(petId);
-	}
-	
+//	/**
+//	 * Method to search for Volunteer by petId to get volunteer contact info
+//	 * for use in future when customer requests time to set up to visit pet
+//	 */
+//	public Volunteer getVolunteerByPet(long petId) {
+//		return volunteerRepo.findByFosterPet(petId);
+//	}
+//	
 	public Volunteer getVolunteerByEmail(String email) {
 		return volunteerRepo.findVolunteerByEmail(email);
 	}

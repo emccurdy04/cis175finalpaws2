@@ -55,7 +55,7 @@
 					  	<p style="text-align:center;"><strong>Our volunteers are what keep us going. It is because of their hard work 							and dedication that our animals never stop feeling loved. Consider volunteering and submit a request to 								become a volunteer today! -P.A.W.S 	</strong></p>
 				  </div>
 				</div>
-				<form th:object="${newVolunteer}" method='POST' class="row g-3" style="border:1px black solid; padding:50px; margin-top:30px; border-radius:3px; margin-bottom:50px;">
+				<form th:object="${newVolunteer}" th:action="@{/addVolunteer}" method='POST' class="row g-3" style="border:1px black solid; padding:50px; margin-top:30px; border-radius:3px; margin-bottom:50px;">
 				<h5>Submit to become a volunteer</h5>
 				<div class="col-md-6">
 				  <label for="firstName" class="form-label" required>First Name</label>
@@ -77,10 +77,12 @@
 				  <label for="street" class="form-label">Address</label>
 				  <input type="text" class="form-control" id="street" name="street" th:field="*{street}">
 				</div>
+				<!--  commented out street2 - removing from form
 				<div class="col-12">
 				  <label for="street2" class="form-label">Address2</label>
 				  <input type="text" class="form-control" id="street2" name="street" th:field="*{street2}">
-				</div>
+				</div> 
+				-->
 				<div class="col-md-6">
 				  <label for="city" class="form-label">City</label>
 				  <input type="text" class="form-control" id="city" name="city" th:field="*{city}">

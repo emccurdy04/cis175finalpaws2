@@ -16,10 +16,11 @@ appropriate boxes - rather than doing a separate page to edit an item  -->
 Enter/Update Pet's name: <input name="petName" size="20" th:field="*{petName}"><br/>
 Enter/Update Pet's type: <input name="petType" size="20" th:field="*{petType}"><br/>
 Enter/Update Pet's breed: <input name="breed" size="20" th:field="*{breed}"><br/>
-Enter/Update Pet's gender: <input name="gender" size="20" th:field="*{gender}">
+Enter/Update Pet's gender: <input name="gender" size="20" th:field="*{gender}"><br/>
 <br/>
-<!-- Since below is no longer embedded into Pet class but now is table join in DB
-likely need to change below  - alter to call to volunteer related controller/service layers-->
+<!-- Since volunteer is no longer embedded into Pet class but now is table join of pet.fosterOwner
+to volunteer.volunteerId in DB likely need to change below  - alter to call to volunteer related 
+controller/service layers-->
 Enter/Update Volunteer information of person who is fostering pet: <br>
 Enter/Update Volunteer's first name: <input name="volunteer.firstName" size="24" th:field="*{volunteer.firstName}">
 Enter/Update Volunteer's last name: <input name="volunteer.lastName" size="24" th:field="*{volunteer.lastName}">

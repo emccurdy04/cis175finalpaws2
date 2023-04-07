@@ -18,7 +18,7 @@ import dmacc.repository.CustomerRepository;
 
 /**
  * Group 8 Final Project - Pet Adoption Website Service (P.A.W.S.) v2
- * 
+ * Service layer for business logic of program. 
  * CustomerService class with methods to interact with CustomerRepository/DAO
  * SQL query database interactions. 
  */
@@ -43,6 +43,10 @@ public class CustomerService {
 	
 	public void deleteCustomerById(long customerId) {
 		customerRepo.deleteById(customerId);
+	}
+	
+	public Customer findCustomerByEmail(String email) {
+		return customerRepo.findCustomerByEmail(email);
 	}
 
 }

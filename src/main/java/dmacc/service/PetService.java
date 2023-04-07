@@ -77,8 +77,8 @@ public class PetService {
 		return petRepo.findPetByBreed(breed);
 	}
 	
-	public List<Pet> getPetByName(String petName){
-		return petRepo.findPetByName(petName);
-	}
+//	public List<Pet> getPetByName(String petName){
+//		return petRepo.findPetByName(petName);
+//	}
 
 }
