@@ -5,9 +5,11 @@
 <title>Group 8 Final Project - Pet Adoption Website Service (P.A.W.S.) v2</title>
 </head>
 <body>
-<header><h1>P.A.W.S. Generic Pets results page</h1><br/>
-<h2>View all Pets</h2></header>
-
+<header><h1>P.A.W.S. Generic Pets results page</h1><br/></header>
+<div th:switch="${pets}">
+<h3 th:case="null">No pets in DB yet</h3>
+<div th:case="*">
+<h2>Pets:</h2>
 <form name="viewPetForm">
 <table>
 <tr th:each="currentPet : ${pets}">
@@ -34,8 +36,14 @@
 </tr>
 </table>
 </form>
+</div>
+</div>
 <br/>
-<form name="viewVolunteerForm">
+<div th:switch="${volunteers}">
+<h3 th:case="null">No volunteers in DB yet</h3>
+<div th:case="*">
+<h3>Volunteers:</h3>
+<form name="viewVolunteerForm" >
 <table>
 <tr th:each="currentVolunteer : ${volunteers}">
 	<td th:text="Volunteer information:" />
@@ -51,13 +59,20 @@
 	<td th:text="${currentVolunteer.email}" />
 	<!-- ??May need to change how below ArrayList is resulted to display in rows for each pet -->
 	<td th:text="${currentVolunteer.listOfFosterPets}" />
+	<!--  <td><a th:href="@{/addVolunteer/{volunteerId}(id=${currentVolunteer.volunteerId})}">Add a new volunteer</a></td> -->
 	<td><a th:href="@{/edit/{volunteerId}(id=${currentVolunteer.volunteerId})}">Edit volunteer</a></td>
 	<td><a th:href="@{/delete/{volunteerId}(id=${currentVolunteer.volunteerId})}">Delete volunteer</a></td>
 </tr>
 </table>
 </form>
+</div>
+</div>
 <br />
-<form name="viewVolunteerForm">
+<div th:switch="${customers}">
+<h3 th:case="null">No customers in DB yet</h3>
+<div th:case="*">
+<h3>Customers:</h3>
+<form name="viewCustomersForm">
 <table>
 <tr th:each="currentCustomer : ${customers}">
 	<td th:text="Customer information:" />
@@ -78,12 +93,14 @@
 </tr>
 </table>
 </form>
+</div>
+</div>
 <br/>
 <a href="viewAll">Refresh page/View all Pets</a><br />
 <a href="../inputPet">Add a new pet</a><br />
-<a href="viewAllVolunteers">View all Volunteers</a><br />
-<a href="../addVolunteer">Add a new volunteer</a>
-<a href="viewAllCustomers">View all customers</a><br />
+<a href="viewAllVolunteers">Refresh page/View all Volunteers</a><br />
+<a href="../addVolunteer">Add a new volunteer</a><br />
+<a href="viewAllCustomers">Refresh page/View all customers</a><br />
 <a href="../addCustomer">Add a new customer</a>
 </body>
 </html>

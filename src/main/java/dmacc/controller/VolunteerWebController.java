@@ -45,24 +45,27 @@ public class VolunteerWebController {
 	@GetMapping("/viewAllVolunteers") //method to be run when /viewAllVolunteers link is called
 	// need to create this link on 
 	public String viewAllVolunteers(Model model) {
-		if(volunteerService.getAllVolunteers().isEmpty()) {
-			return addVolunteer(model);
-		}
-		model.addAttribute("volunteer", volunteerService.getAllVolunteers());
+		//List<Volunteer> volunteers = volunteerService.getAllVolunteers();
+//		if(volunteerService.getAllVolunteers().isEmpty()) {
+//			//return addVolunteer(model);
+//			return "no volunteers found in DB";
+//		}
+		model.addAttribute("volunteers", volunteerService.getAllVolunteers());
 		return "results";
+		//return "viewVolunteers"; //?  make new/separate pages for viewing Volunteers/Customers/Pets
 	}
 	
-	@GetMapping("/viewAllVolunteers")
-	//@GetMapping("/volunteers") //?? unsure which version of GetMapping URI should use here
-	public List<Volunteer> getAllVolunteers(){
-	//public String getAllVolunteers(){
-		//List<Volunteer> volunteers = volunteerService.getAllVolunteers()
-		// model.addAttribute("volunteers", volunteerService.getAllVolunteers());
-		// ??or model.addAttribute("volunteers", volunteerRepo.findAll());
-		// ??if do above line code version would need to add Autowired VolunteerRepository to this class
-		// return "results";
-		return volunteerService.getAllVolunteers();
-	}
+//	@GetMapping("/viewAllVolunteers")
+//	//@GetMapping("/volunteers") //?? unsure which version of GetMapping URI should use here
+//	public List<Volunteer> getAllVolunteers(){
+//	//public String getAllVolunteers(){
+//		//List<Volunteer> volunteers = volunteerService.getAllVolunteers()
+//		// model.addAttribute("volunteers", volunteerService.getAllVolunteers());
+//		// ??or model.addAttribute("volunteers", volunteerRepo.findAll());
+//		// ??if do above line code version would need to add Autowired VolunteerRepository to this class
+//		// return "results";
+//		return volunteerService.getAllVolunteers();
+//	}
 		
 	@GetMapping("/volunteer/{volunteerId}")
 	// ?? unsure if should use long id vs long volunteerId in next line - start w/ latter version
@@ -85,9 +88,11 @@ public class VolunteerWebController {
 		//??Volunteer volunteer = volunteerRepo.findById(volunteerId).orElse(null);
 		model.addAttribute("newVolunteer", volunteer);
 		return "input";
+		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
 	
 	//?? re: above @DeleteMapping version of deleteVolunteer method vs below @GetMapping version
+	//@DeleteMapping("/delete/{volunteerId}") //?? this or below path???
 	@DeleteMapping("/volunteer/{volunteerId}")
 	// ?? unsure if should use long id vs long volunteerId in next line - start w/ latter version
 	//public void deleteVolunteer(@PathVariable("volunteerId") long id) {
@@ -107,29 +112,41 @@ public class VolunteerWebController {
 	}
 	
 	
-	//@PostMapping("/addVolunteer") // ?? this version vs below
-	@PostMapping("/volunteer")
-	public void addVolunteer(@RequestBody Volunteer volunteer) {
-		volunteerService.saveVolunteerEdit(volunteer);
-	}
+//	//@PostMapping("/addVolunteer") // ?? this version vs below
+//	@PostMapping("/volunteer")
+//	public void addVolunteer(@RequestBody Volunteer volunteer) {
+//		volunteerService.saveVolunteerEdit(volunteer);
+//	}
 	
 	// ?? below two methods are alternatives of above for use in Spring MVC web controller 
-	@GetMapping("/addVolunteer")
+	@GetMapping("/volunteer")
+	//@GetMapping("/volunteer.html")
+	//@GetMapping("/addVolunteer")
 	public String addVolunteer(Model model) {
 		Volunteer volunteer = new Volunteer();
 		model.addAttribute("newVolunteer", volunteer);
-		return "input";
+		//return "input";
+		return "volunteer";
+		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
 	
+	//@PostMapping("/volunteer")
 	@PostMapping("/addVolunteer")
-	public String addVolunteer(@ModelAttribute("volunteer") Volunteer volunteer, Model model) {
+	public String addVolunteer(@ModelAttribute("newVolunteer") Volunteer volunteer, Model model) {
+	//public String addVolunteer(@ModelAttribute("volunteer") Volunteer volunteer, Model model) {
 	//public String addVolunteer(@ModelAttribute Volunteer volunteer, Model model) {
 		//volunteerRepo.save(volunteer); // ?? does below replace this line??
 		volunteerService.saveVolunteerEdit(volunteer);
-		return viewAllVolunteers(model);
+		//return viewAllVolunteers(model);
+		//return "volunteer";
+		//return "redirect:/success";
+		return "success";
+		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
 	
 	//??? re: below method
+	//@PutMapping("/edit/{volunteerId}")
+	//@PutMapping("/volunteer/edit")
 	@PutMapping("/volunteer")
 	public void editVolunteer(@RequestBody Volunteer volunteer) {
 		volunteerService.saveVolunteerEdit(volunteer);

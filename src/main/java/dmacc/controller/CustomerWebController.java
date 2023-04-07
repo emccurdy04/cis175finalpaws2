@@ -43,9 +43,10 @@ public class CustomerWebController {
 	// method for use in Spring MVC Web controller
 	@GetMapping("/viewAllCustomers") //method to be run when /viewAllCustomers link is called 
 	public String viewAllCustomers(Model model) {
-		if(customerService.getAllCustomers().isEmpty()) {
-			return addCustomer(model);
-		}
+//		if(customerService.getAllCustomers().isEmpty()) {
+//			//return addCustomer(model);
+//			return "no customers found in DB";
+//		}
 		model.addAttribute("customer", customerService.getAllCustomers());
 		return "results";
 	}
@@ -131,6 +132,23 @@ public class CustomerWebController {
 	@PutMapping("/customer")
 	public void editCustomer(@RequestBody Customer customer) {
 		customerService.saveCustomerEdit(customer);
+	}
+	
+	// moved these from WebController
+	@GetMapping("/consult-request")
+	public String addNewCustomer(Model model) {
+		Customer customer = new Customer();
+		model.addAttribute("newCustomer", customer);
+		return "input";
+		//return "input.html";
+	}
+	
+	@PostMapping("/consult-request")
+	public String addNewCustomer(@ModelAttribute Customer customer, Model model) {
+		//changed line below to next line that calls Service layer
+		//custRepo.save(customer);
+		customerService.saveCustomerEdit(customer);
+		return "success";
 	}
 
 }

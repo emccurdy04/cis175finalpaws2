@@ -26,4 +26,7 @@ import dmacc.beans.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
+	Customer findCustomerByEmail(String email);
+	//Optional<Customer> findCustomerByEmail(String email);
+
 }
