@@ -102,7 +102,8 @@ public class VolunteerWebController {
 	@DeleteMapping("/volunteer/{volunteerId}")
 	// ?? unsure if should use long id vs long volunteerId in next line - start w/ latter version
 	//public void deleteVolunteer(@PathVariable("volunteerId") long id) {
-	public void deleteVolunteer(@PathVariable("volunteerId") long volunteerId) {
+	//public void deleteVolunteer(@PathVariable("volunteerId") long volunteerId) {
+	public void volunteerToDelete(@PathVariable("volunteerId") long volunteerId) {
 		volunteerService.deleteVolunteerById(volunteerId);
 	}
 	
@@ -124,6 +125,7 @@ public class VolunteerWebController {
 //		volunteerService.saveVolunteerEdit(volunteer);
 //	}
 	
+	//@GetMapping("/inputVolunteer")
 	@GetMapping("/addVolunteer")
 	public String inputVolunteer(Model model) {
 		Volunteer volunteer = new Volunteer();
@@ -132,8 +134,8 @@ public class VolunteerWebController {
 	}
 	
 	// ?? below two methods are alternatives of above for use in Spring MVC web controller 
-	@GetMapping("/volunteer")
-	//@GetMapping("/volunteer.html")
+	//@GetMapping("/volunteer")
+	@GetMapping("/volunteer.html")
 	//@GetMapping("/addVolunteer")
 	public String addVolunteer(Model model) {
 		Volunteer volunteer = new Volunteer();
@@ -143,27 +145,28 @@ public class VolunteerWebController {
 		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
 	
-	@PostMapping("/volunteer")
-	//@PostMapping("/addVolunteer")
-	public String addVolunteer(@ModelAttribute("newVolunteer") Volunteer volunteer, Model model) {
+	//@PostMapping("/saveVolunteer") //?trial of changing PostMapping so not same as GetMapping above
+	//@PostMapping("/volunteer")
+	@PostMapping("/addNewVolunteer")
+	public String addNewVolunteer(@ModelAttribute("newVolunteer") Volunteer volunteer, Model model) {
 	//public String addVolunteer(@ModelAttribute("volunteer") Volunteer volunteer, Model model) {
 	//public String addVolunteer(@ModelAttribute Volunteer volunteer, Model model) {
 		//volunteerRepo.save(volunteer); // ?? does below replace this line??
 		volunteerService.saveVolunteerEdit(volunteer);
 		//return viewAllVolunteers(model);
 		//return "volunteer";
-		//return "redirect:/success";
-		return "success";
+		//return "redirect:/success"; //??change to this if after saves want to redirect to success page?? 
+		return "success";	//?? if this version of telling it to go to 'success' page doesn't work	
 		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
 	
 	//??? re: below method
 	//@PutMapping("/edit/{volunteerId}")
 	//@PutMapping("/volunteer/edit")
-	@PutMapping("/volunteer")
-	public void editVolunteer(@RequestBody Volunteer volunteer) {
-		volunteerService.saveVolunteerEdit(volunteer);
-	}
+//	@PutMapping("/volunteer")
+//	public void editVolunteer(@RequestBody Volunteer volunteer) {
+//		volunteerService.saveVolunteerEdit(volunteer);
+//	}
 	
 //	//??? above PutMapping version of editVolunteer method need changed to below version for 
 //	// ???Spring MVC Webcontroller or both??

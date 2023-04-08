@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import dmacc.beans.Customer;
+import dmacc.beans.Pet;
 import dmacc.service.CustomerService;
+import dmacc.service.PetService;
 
 /**
  * Group 8 Final Project - Pet Adoption Website Service (P.A.W.S.) v2
@@ -34,6 +36,9 @@ import dmacc.service.CustomerService;
 public class CustomerWebController {
 	@Autowired
 	CustomerService customerService;
+	
+	@Autowired
+	PetService petService;
 	
 	//?? might need to add below for Spring MVC web controller - leave commented out for now
 	//@Autowired
@@ -118,7 +123,7 @@ public class CustomerWebController {
 		customerService.saveCustomerEdit(customer);
 	}
 	
-	// ?? below two methods are alternatives of above for use in Spring MVC web controller 
+
 	@GetMapping("/addCustomer")
 	public String addCustomer(Model model) {
 		Customer customer = new Customer();
@@ -141,6 +146,37 @@ public class CustomerWebController {
 		customerService.saveCustomerEdit(customer);
 	}
 	
+	//?? in order to get drop down list of available pets to attach to this customer object
+	// may need to switch @GetMapping("/addCustomer") - addCustomer(Model model) method to this
+	//?? have way for this to be called if selectedPet field is empty?
+	@GetMapping("/selectedPet")
+	public String getSelectPet(Model model) {
+		Customer customer = new Customer();
+		//List<Pet> selectablePets = petService.g
+		model.addAttribute("customer", customer);
+		model.addAttribute("selectablePets", petService.getAllPets());
+		return "input";
+	}
+	
+	// ?? if use above then should also change the @PostMapping("/addCustomer") addCustomer()
+	// method to below
+	@PostMapping("/selectedPet")
+	public String postSelectedPet(@ModelAttribute("customer") Customer customer, Model model) {
+		//the customer.selectedPet field should contain selected pet object 
+		//?? if need below to add/save selectedPet to customer object in db table
+		customerService.saveCustomerEdit(customer);
+		return viewAllCustomers(model);
+	}
+	
+	@GetMapping("/selectablePets")
+	public String getSelectablePets(Model model) {
+		//Customer customer = new Customer();
+		//List<Pet> selectablePets = petService.g
+		//model.addAttribute("customer", customer);
+		model.addAttribute("selectablePets", petService.getAllPets());
+		return "input";
+	}
+	
 	// moved these 2 methods from WebController 
 	// methods for dealing with - available-animals page form to POST newCustomer object
 	@GetMapping("/consult-request")
@@ -148,15 +184,16 @@ public class CustomerWebController {
 		Customer customer = new Customer();
 		model.addAttribute("newCustomer", customer);
 		return "input";
-		//return "input.html";
 	}
 	
-	@PostMapping("/consult-request")
+	@PostMapping("/saveCustomer")	//??trial of changing PostMapping so not same as GetMapping above
+	//@PostMapping("/consult-request")
 	public String addNewCustomer(@ModelAttribute Customer customer, Model model) {
 		//changed line below to next line that calls Service layer
 		//custRepo.save(customer);
 		customerService.saveCustomerEdit(customer);
-		return "success";
+		return "success";	//?? if this version of telling it to go to 'success' page after saves doesn't work	
+		//return "redirect:/success"; //??change to this if after saves want to redirect to success page??
 	}
 
 }

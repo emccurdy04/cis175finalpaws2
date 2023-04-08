@@ -120,10 +120,10 @@ public class WebController {
 	//??Comment this Volunteer related method out in WebController & move to VolunteerWebController
 	// ?? or leave just the basic navigation to the page here??
 	//@RequestMapping("/volunteer")
-	@RequestMapping("/volunteer.html")
-	public String volunteerPage() {
-		return "volunteer";
-	}
+//	@RequestMapping("/volunteer.html")
+//	public String volunteerPage() {
+//		return "volunteer";
+//	}
 	
 	//@RequestMapping("/contact")
 	@RequestMapping("/contact.html")
