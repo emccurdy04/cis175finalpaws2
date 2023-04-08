@@ -49,7 +49,7 @@
 			</div>
 			<div style="border: 1px black solid; border-radius: 2px; margin: 30px; padding:50px;">
 		<h2>Request a consultation</h2>
-		<form th:object="${newCustomer}" th:action="@{/consult-request}" method='POST' class="row g-3">
+		<form action="#" th:object="${newCustomer}" th:action="@{/consult-request}" method='POST' class="row g-3">
 			<div class="col-md-6">
 			  <label for="firstName" class="form-label" required>First Name</label>
 			  <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}">
