@@ -55,23 +55,23 @@
 		<form action="#" th:object="${newCustomer}" th:action="@{/consult-request}" method='POST' class="row g-3">
 			<div class="col-md-6">
 			  <label for="firstName" class="form-label" required>First Name</label>
-			  <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}">
+			  <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}" required>
 			</div>
 			<div class="col-md-6">
 			  <label for="inputPassword4" class="form-label">Last Name</label>
-			  <input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}">
+			  <input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}" required>
 			</div>
 			<div class="col-md-6">
 				<label for="email" class="form-label">Email</label>
-				<input type="email" class="form-control" id="email" name="email" th:field="*{email}">
+				<input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
 			  </div>
 			  <div class="col-md-6">
 				<label for="phone" class="form-label">Phone Number</label>
-				<input type="email" class="form-control" id="phone" name="phone" th:field="*{phone}">
+				<input type="phone" class="form-control" id="phone" name="phone" th:field="*{phone}" required max="10">
 			  </div>
 			<div class="col-12">
 			  <label for="street" class="form-label">Address</label>
-			  <input type="text" class="form-control" id="street" name="street" th:field="*{street}">
+			  <input type="text" class="form-control" id="street" name="street" th:field="*{street}" required>
 			</div>
 			<!-- commented out street2 since not an instance variable in Customer class 
 			<div class="col-12">
@@ -80,20 +80,20 @@
 			</div>-->
 			<div class="col-md-6">
 			  <label for="city" class="form-label">City</label>
-			  <input type="text" class="form-control" id="city" name="city" th:field="*{city}">
+			  <input type="text" class="form-control" id="city" name="city" th:field="*{city}" required>
 			</div>
 				<div class="col-md-4">
 				  <label for="state" class="form-label">State</label>
-				  <input type="text" class="form-control" id="state" name="state" th:field="*{state}">
+				  <input type="text" class="form-control" id="state" name="state" th:field="*{state}" required>
 				</div>
 			<div class="col-md-2">
 			  <label for="zip" class="form-label">Zip</label>
-			  <input type="text" class="form-control" id="zip" name="zip" th:field="*{zip}">
+			  <input type="text" class="form-control" id="zip" name="zip" th:field="*{zip}" required>
 			</div>
 			<div class="col-12">
 			  <!-- <div class="form-check" style="padding-left:0px;">
 				<label for="cars">Which friend are you interested in meeting?</label><br>
-					<select th:field="*{pet.petName}">
+					<select th:field="*{pet.petName}" required>
 							<option th:each="pet: ${Pet}" th:value="${pet.firstName}" th:text="${pet.firstName}" />
 					</select>
 			  </div> -->
