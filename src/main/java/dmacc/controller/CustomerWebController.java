@@ -186,7 +186,8 @@ public class CustomerWebController {
 		return "input";
 	}
 	
-	@PostMapping("/saveCustomer")	//??trial of changing PostMapping so not same as GetMapping above
+	
+	@PostMapping("/consult-request")	//??trial of changing PostMapping so not same as GetMapping above
 	//@PostMapping("/consult-request")
 	public String addNewCustomer(@ModelAttribute Customer customer, Model model) {
 		//changed line below to next line that calls Service layer

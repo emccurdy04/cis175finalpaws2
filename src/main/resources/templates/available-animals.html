@@ -44,10 +44,15 @@
 		<main>
 			<div class="container">
 			<h1 style="text-align: center; padding:50px;">Our Available Animals! </h1>
-			<div class="card" style="width: 18rem;">
-				<img style="height: 300px;" src="imgs/flouffy-g2FtlFrc164-unsplash.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-				  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			<div class="row" style="display:flex; justify-content:center;">
+				<div class="col-lg-3" style="display:contents;">
+					<div class="card" style="width: 18rem; margin:30px; padding:10px;" th:each="currentPet : ${pets}">
+						<div class="card-body">
+							<strong>Pet name: <td th:text="${currentPet.petName}" /><br></strong>
+							<strong>pet breed: <td th:text="${currentPet.breed}" /><br></strong>
+							<strong>Pet Gender: <td th:text="${currentPet.gender}" /><br></strong>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div style="border: 1px black solid; border-radius: 2px; margin: 30px; padding:50px;">
@@ -91,12 +96,12 @@
 			  <input type="text" class="form-control" id="zip" name="zip" th:field="*{zip}" required>
 			</div>
 			<div class="col-12">
-			  <!-- <div class="form-check" style="padding-left:0px;">
-				<label for="cars">Which friend are you interested in meeting?</label><br>
-					<select th:field="*{pet.petName}" required>
-							<option th:each="pet: ${Pet}" th:value="${pet.firstName}" th:text="${pet.firstName}" />
+			  <div class="form-check" style="padding-left:0px;">
+				<label for="pet">Which friend are you interested in meeting?</label><br>
+					<select class="form-control" required>
+							<option th:each="currentPet : ${pets}" th:text="${currentPet.petName}" />
 					</select>
-			  </div> -->
+			  </div>
 			</div>
 			<div class="col-12">
 			  <button type="submit" class="btn btn-primary">Submit</button>
