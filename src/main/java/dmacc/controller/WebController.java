@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dmacc.repository.PetRepository;
 import dmacc.service.PetService;
 import dmacc.beans.Pet;
-
 import dmacc.repository.CustomerRepository;
 import dmacc.beans.Customer;
 /**
@@ -94,6 +93,9 @@ public class WebController {
 	@GetMapping("/available-animals.html")
 	public String availableAnimalsPage(Model model) {
 	///public String availableAnimalsPage() {
+		Customer customer = new Customer();
+		//List<Pet> selectablePets = petService.g
+		model.addAttribute("newCustomer", customer);
 		if (petService.getAllPets().isEmpty()) {
 			return "no pets found in DB";
 			//return "error";
