@@ -98,8 +98,8 @@
 			<div class="col-12">
 			  <div class="form-check" style="padding-left:0px;">
 				<label for="pet">Which friend are you interested in meeting?</label><br>
-					<select class="form-control" required>
-							<option th:each="currentPet : ${pets}" th:text="${currentPet.petName}" />
+					<select class="form-control" id="selectedPet" name="selectedPet" th:field="*{selectedPet}" required>
+							<option th:each="currentPet : ${pets}" th:text="${currentPet.petName}" th:value="${currentPet.petId}"/>
 					</select>
 			  </div>
 			</div>
