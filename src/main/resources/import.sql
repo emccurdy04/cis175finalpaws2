@@ -12,7 +12,7 @@ INSERT INTO pets (pet_name, pet_type, breed, gender, foster_owner_volunteer_id) 
 
 INSERT INTO pets (pet_name, pet_type, breed, gender, foster_owner_volunteer_id) VALUES ("Tweetie", "bird", "Parakeet", "female", null);
 
-INSERT INTO pets (breed, gender, pet_name, pet_type) VALUES ('Husky', 'Femaile', 'Haven', 'Dog'), ('German Shepherd', 'Male', 'Havek', 'Dog'), ('Husky', 'Female', 'Zuli', 'Dog');
+INSERT INTO pets (breed, gender, pet_name, pet_type) VALUES ('Husky', 'Female', 'Haven', 'Dog'), ('German Shepherd', 'Male', 'Havek', 'Dog'), ('Husky', 'Female', 'Zuli', 'Dog');
 
 INSERT INTO volunteers (city, email, first_name, last_name, phone, state, street, zip) VALUES ('Newton', 'karoney@dmacc.edu', 'Kevin', 'Roney', '641-123-4567', 'Iowa', '123 Main St', '50208'), ('Des Moines', 'JohnSmith@dmacc.edu', 'John', 'Smith', '515-222-4444', 'Iowa', '500 Maple St', '50304');
 
