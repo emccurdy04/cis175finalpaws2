@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dmacc.repository.PetRepository;
 import dmacc.service.PetService;
+import dmacc.service.VolunteerService;
 import dmacc.beans.Pet;
 import dmacc.repository.CustomerRepository;
 import dmacc.beans.Customer;
@@ -45,6 +46,8 @@ public class WebController {
 	CustomerRepository custRepo;
 	@Autowired
 	PetService petService;
+	@Autowired
+	VolunteerService volunteerService;
 
 	
 	/**
@@ -133,6 +136,21 @@ public class WebController {
 		return "contact";
 	}
 	
+	//trying to create method to be called when contact.html page form is submitted so can be 
+	//directed to 'success' page. 
+	//@PostMapping("/contactForm")
+	@PostMapping("/contact.html")
+	public String submitContactForm() {
+		//if (contactForm.hasErrors()) {
+		//if (form-control.hasErrors()) {
+		//if (form.hasErrors()) {
+		//if (contact.hasErrors()) {
+		//	return "error";
+		//}
+		//return "success";
+		return "redirect:/success";
+	}
+	
 	@RequestMapping("/success.html")
 	public String success() {
 		return "success";
@@ -172,9 +190,13 @@ public class WebController {
 		
 	@GetMapping("/addPet")
 	//@GetMapping("/inputPet")
-	public String inputPet(Model model) {
+	public String addPet(Model model) {
+	//public String inputPet(Model model) {
 		Pet pet = new Pet();
 		model.addAttribute("newPet", pet);
+		// ??below line not working to get list of volunteers to send to input page for display
+		// same method worked in customer & volunteer webcontrollers ??
+		//model.addAttribute("selectableVolunteers", volunteerService.getAllVolunteers());
 		return "input";
 	}
 	
@@ -186,6 +208,7 @@ public class WebController {
 		return viewAllPets(model);
 	}
 	
+	// can likely remove below method - no longer needed?
 //	@GetMapping("/addPet")
 //	public String addPet(Model model) {
 //		Pet pet = new Pet();
