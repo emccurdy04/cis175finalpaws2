@@ -51,7 +51,7 @@ public class CustomerWebController {
 //			//return addCustomer(model);
 //			return "no customers found in DB";
 //		}
-		model.addAttribute("customer", customerService.getAllCustomers());
+		model.addAttribute("customers", customerService.getAllCustomers());
 		return "results";
 	}
 	
@@ -128,6 +128,10 @@ public class CustomerWebController {
 	public String addCustomer(Model model) {
 		Customer customer = new Customer();
 		model.addAttribute("newCustomer", customer);
+		//adding this & addAttribute lines below just caused Pets form to also populate, but not drop down
+		//Pet pet = new Pet(); 
+		//model.addAttribute("newPet", pet);
+		model.addAttribute("selectablePets", petService.getAllPets());
 		return "input";
 	}
 	
@@ -152,7 +156,7 @@ public class CustomerWebController {
 	@GetMapping("/selectedPet")
 	public String getSelectPet(Model model) {
 		Customer customer = new Customer();
-		//List<Pet> selectablePets = petService.g
+		//List<Pet> selectablePets = petService.getAllPets()
 		model.addAttribute("customer", customer);
 		model.addAttribute("selectablePets", petService.getAllPets());
 		return "input";

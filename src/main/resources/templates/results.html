@@ -19,8 +19,9 @@
 	<td th:text="${currentPet.gender}" />
 	<!-- Volunteer information of person who is fostering pet: -->
 	<!-- <td th:text="Volunteer information of person who is fostering pet:" />-->
-	<!-- ?below version is an attempt to address null values -->
-	<td th:text="'Volunteer Fostering Pet: ' + ${currentPet?.fosterOwner?.fosterOwner}">
+	<!-- ?both of below versions display & are attempts to address null values -->
+	<!--<td th:text="'Volunteer Fostering Pet: ' + ${currentPet?.fosterOwner?.fosterOwner}">-->
+	<td th:text="'Volunteer Fostering Pet: ' + ${currentPet.fosterOwner?.fosterOwner}">
 	<!-- <td th:text="${currentPet.fosterOwner.volunteerId}" /> -->
 	<!-- 
 	<td th:text="${currentPet.volunteer.firstName}" />
@@ -61,9 +62,21 @@
 	<td th:text="${currentVolunteer.phone}" />
 	<td th:text="${currentVolunteer.email}" />
 	<!-- ??May need to change how below ArrayList is resulted to display in rows for each pet -->
-	<!-- <td th:text="${currentVolunteer.listOfFosterPets}" /> -->
+	<!-- <td th:text="${currentVolunteer.listOfFosterPets}" />-->
+	
 	<!-- ?below version is an attempt to address null values -->
 	<td th:text="${currentVolunteer?.listOfFosterPets?.listOfFosterPets}" />
+	
+	<!-- ?below line currentVolunteer.pet vs pet-->
+	<!-- <tr th:each="pet : ${currentVolunteer.listofFosterPets}">-->
+	<!--<td th:each="pet : ${currentVolunteer.listofFosterPets}">-->
+	<!-- trial below version for null values -->
+	<!--<td th:each="pet : ${currentVolunteer.listofFosterPets}"/>-->
+	<!--<td th:value="${pet.petId}" th:text="${pet.toString()}"/>-->
+	<!--<td th:value="${pet.currentVolunteer.listofFosterPets.petId}" th:text="${pet.currentVolunteer.listofFosterPets.toString()}"/>-->
+		<!--<td th:value="${pet.petId}" th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}"/>-->
+		<!-- ?below version is an attempt to address null values -->
+		<!--<td th:text="${currentVolunteer?.listOfFosterPets?.listOfFosterPets}" />-->
 	<!--  <td><a th:href="@{/addVolunteer/{volunteerId}(id=${currentVolunteer.volunteerId})}">Add a new volunteer</a></td> -->
 	<td><a th:href="@{/edit/{volunteerId}(id=${currentVolunteer.volunteerId})}">Edit volunteer</a></td>
 	<td><a th:href="@{/delete/{volunteerId}(id=${currentVolunteer.volunteerId})}">Delete volunteer</a></td>
@@ -92,7 +105,8 @@
 	<td th:text="${currentCustomer.phone}" />
 	<td th:text="${currentCustomer.email}" />
 	<!-- ??May need to change how below ArrayList is resulted to display in rows for each pet -->
-	<td th:text="${currentVolunteer?.selectedPet?.selectedPet}" />
+	<td th:text="${currentCustomer?.selectedPet?.selectedPet}" />
+	<!--<td th:text="${currentCustomer.selectedPet?.selectedPet}" />-->
 	<!-- ?above version is an  attempt to address null values <td th:text="${currentVolunteer.selectedPet}" />-->
 	<td><a th:href="@{/edit/{customerId}(id=${currentCustomer.customerId})}">Edit customer</a></td>
 	<td><a th:href="@{/delete/{customerId}(id=${currentCustomer.customerId})}">Delete customer</a></td>

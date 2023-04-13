@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import dmacc.beans.Volunteer;
+import dmacc.service.PetService;
 import dmacc.service.VolunteerService;
 
 /**
@@ -39,6 +40,9 @@ public class VolunteerWebController {
 	//?? might need to add below for Spring MVC web controller - leave commented out for now
 	//@Autowired
 	//VolunteerRepository volunteerRepo;
+	
+	@Autowired
+	PetService petService;
 	
 	// ? consider commented alterations for next method for use in Spring MVC Web controller?
 	// below method now working - routing to results.html page & displays message there if DB empty
@@ -130,6 +134,7 @@ public class VolunteerWebController {
 	public String inputVolunteer(Model model) {
 		Volunteer volunteer = new Volunteer();
 		model.addAttribute("newVolunteer", volunteer);
+		model.addAttribute("selectablePets", petService.getAllPets());
 		return "input";
 	}
 	
