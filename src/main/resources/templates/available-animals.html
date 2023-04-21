@@ -38,7 +38,8 @@
 			if ((email.value === '' || email.value == null) && (phone.value === '' || phone.value == null)){
 				messages.push('You must provide either an email or phone number');
 			}
-			if (/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(phone.value) == false){
+			if ((phone.value.length > 0) && /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(phone.value) == false){
+				console.log(phone.value.length)
 				messages.push('Phone number can only be entered in the following formats: (123) 456-7890 / (123)456-7890  / 123-456-7890 / 1234567890');
 			}
 			if (street.value === '' || street.value == null){
@@ -47,9 +48,11 @@
 			if (city.value === '' || city.value == null){
 				messages.push('City is required');
 			}
+			if (/\d/.test(city.value)){
+				messages.push('City field cannot contain a number')
+			}
 			if (state.value === '' || state.value == null){
 				messages.push('State is required');
-				console.log('test');
 			}
 			if (/\d/.test(state.value)){
 				messages.push('State field cannot contain a number')
