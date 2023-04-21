@@ -27,6 +27,8 @@ Enter/Update Pet's foster owner info:<!-- <input name="fosterOwner" size="50" th
 <!-- <select th:field="*{selectedVolunteer}" class="form-control" id="selectedVolunteer" name="selectedVolunteer"> -->
 <!-- ?class="form-control" needed in select tag? -->
 <!-- <select th:field="*{fosterOwner}" id="selectedVolunteer" name="selectedVolunteer" required> -->
+<!-- Below method w/ altered '/addPet' Get mapping from webcontroller not working like did w/ volunteers
+& customers displaying below -->
 <select th:field="*{fosterOwner}" id="fosterOwner" name="fosterOwner">
 	<option value="">Select Foster Owner</option>
 	<option th:each="volunteer : ${selectableVolunteers}"  

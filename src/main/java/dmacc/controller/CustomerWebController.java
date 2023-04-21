@@ -51,6 +51,8 @@ public class CustomerWebController {
 //			//return addCustomer(model);
 //			return "no customers found in DB";
 //		}
+		// see if change lining line 55 to version on 56 caused issues displaying results page
+		//model.addAttribute("customer", customerService.getAllCustomers()); 
 		model.addAttribute("customers", customerService.getAllCustomers());
 		return "results";
 	}
