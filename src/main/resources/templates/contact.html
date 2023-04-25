@@ -49,21 +49,21 @@
 					<div style="border:1px black solid; padding:50px; border-radius: 2px;">
 						<div class="row">
 						<div class="col-lg-6">
-							<input type="text" class="form-control" placeholder="First name" aria-label="First name" style="margin-bottom: 40px;">
+							<input type="text" class="form-control" placeholder="First name" aria-label="First name" style="margin-bottom: 40px;" required>
 						</div>
 						<div class="col-lg-6">
-							<input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+							<input type="text" class="form-control" placeholder="Last name" aria-label="Last name" required>
 						</div>
 						<div class="col-lg-6">
-							<input type="text" class="form-control" placeholder="Email" aria-label="Last name">
+							<input type="email" class="form-control" placeholder="Email" aria-label="Last name" required>
 						</div>
 						<div class="col-lg-6">
-							<input type="text" class="form-control" placeholder="Phone number" aria-label="Last name">
+							<input type="phone" class="form-control" placeholder="Phone number" aria-label="Last name" required>
 						</div>
 						</div><br>
 						<div class="mb-3">
 							<label for="questions" class="form-label">Your questions or concerns</label>
-							<textarea class="form-control" id="questions" rows="3"></textarea>
+							<textarea class="form-control" id="questions" rows="3" required></textarea>
 						</div>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
