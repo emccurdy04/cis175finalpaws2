@@ -147,8 +147,7 @@ public class WebController {
 		//if (contact.hasErrors()) {
 		//	return "error";
 		//}
-		//return "success";
-		return "redirect:/success";
+		return "success";
 	}
 	
 	@RequestMapping("/success.html")
@@ -184,7 +183,6 @@ public class WebController {
 //		
 		model.addAttribute("pets", repo.findAll());
 		return "results";
-		//return "results.html";
 	}
 	
 		
@@ -196,6 +194,7 @@ public class WebController {
 		model.addAttribute("newPet", pet);
 		// ??below line not working to get list of volunteers to send to input page for display
 		// same method worked in customer & volunteer webcontrollers ??
+		// below line causes it go to 'error' page - commenting out 
 		//model.addAttribute("selectableVolunteers", volunteerService.getAllVolunteers());
 		return "input";
 	}
@@ -227,13 +226,17 @@ public class WebController {
 	 * ???not sure which version of 1st line of method to use long petId vs long id
 	 * trial 1st w/ long petId version 
 	 */
-	@GetMapping("/edit/{petId}")
+	//below version not working ?need more specific edit/delete for each class?
+	//@GetMapping("/edit/{petId}")
+	@GetMapping("/editPet/{petId}")
 	//@GetMapping("/edit/{id}")
 	public String showUpdatePet(@PathVariable("petId") long petId, Model model) {
 	//public String showUpdatePet(@PathVariable("petId") long id, Model model) {
 		Pet pet = repo.findById(petId).orElse(null);
 		//Pet pet = repo.findById(id).orElse(null);
 		model.addAttribute("newPet", pet);
+		// ?similar below works w/ CustomerWebController editCustomer but not here?
+		//model.addAttribute("selectableVolunteers", volunteerService.getAllVolunteers());
 		return "input";
 		//return "input.html";
 	}
@@ -241,7 +244,8 @@ public class WebController {
 	/**
 	 * ??not sure whether best to use petId vs id
 	 */
-	@PostMapping("/update/{petId}")
+	//@PostMapping("/update/{petId}")
+	@PostMapping("/updatePet/{petId}")
 	//@PostMapping("/update/{id}")
 	public String editPet(Pet pet, Model model) {
 		repo.save(pet);
@@ -252,7 +256,8 @@ public class WebController {
 	/**
 	 * ??not sure whether best to use petId vs id
 	 */
-	@GetMapping("/delete/{petId}")
+	//@GetMapping("/delete/{petId}")
+	@GetMapping("/deletePet/{petId}")
 	//@GetMapping("/delete/{id}")
 	public String deletePet(@PathVariable("petId") long petId, Model model) {
 	//public String deletePet(@PathVariable("petId") long id, Model model) {
