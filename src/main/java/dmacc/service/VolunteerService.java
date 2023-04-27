@@ -13,7 +13,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dmacc.beans.Pet;
 import dmacc.beans.Volunteer;
+import dmacc.repository.PetRepository;
 import dmacc.repository.VolunteerRepository;
 
 /**
@@ -26,6 +28,9 @@ public class VolunteerService {
 	
 	@Autowired
 	VolunteerRepository volunteerRepo;
+	
+	@Autowired
+	PetService petService;
 	
 	public Volunteer getVolunteerById(long volunteerId) {
 		return volunteerRepo.findById(volunteerId).get();
@@ -50,9 +55,11 @@ public class VolunteerService {
 //	 * for use in future when customer requests time to set up to visit pet
 //	 */
 //	public Volunteer getVolunteerByPet(long petId) {
+//		//Pet pet = petService.getPetById(petId);
+//		//if (petId in volunteer.listOfFosterPets)
 //		return volunteerRepo.findByFosterPet(petId);
 //	}
-//	
+	
 	public Volunteer getVolunteerByEmail(String email) {
 		return volunteerRepo.findVolunteerByEmail(email);
 	}
