@@ -12,7 +12,7 @@
 <h2>Pets:</h2>
 <form name="viewPetForm">
 <table>
-<tr th:each="currentPet : ${pets}">
+<tr th:each="currentPet : ${pets}" >
 	<td th:text="${currentPet.petId}" />
 	<td th:text="${currentPet.petName}" />
 	<td th:text="${currentPet.breed}" />
@@ -35,8 +35,19 @@
 	<!-- ??not sure if this is needed <td th:text="${currentPet.volunteer.listOfFosterPets}" /> -->
 	<!-- <td><a th:href="@{/edit/{id}(id=${currentPet.petId})}">Edit</a></td>
 	<td><a th:href="@{/delete/{id}(id=${currentPet.petId})}">Delete</a></td> -->
+	<!-- 
 	<td><a th:href="@{/edit/{petId}(id=${currentPet.petId})}">Edit</a></td>
-	<td><a th:href="@{/delete/{petId}(id=${currentPet.petId})}">Delete</a></td>
+	<td><a th:href="@{/delete/{petId}(id=${currentPet.petId})}">Delete</a></td> -->
+	<!--??need more specific edit/delete for each class? -->
+	<!-- <td><a th:href="@{/editPet/{petId}(id=${currentPet.petId})}">Edit</a></td>
+	<td><a th:href="@{/deletePet/{petId}(id=${currentPet.petId})}">Delete</a></td>
+	 -->
+	 <!-- <td><a th:href="@{/editPet/{petId}(id=${currentPet.petId})}">Edit</a></td>
+	<td><a th:href="@{/deletePet/{petId}(id=${currentPet.petId})}">Delete</a></td>
+	 -->
+	<td><a th:href="@{/editPet/{id}(id=${currentPet.petId})}">Edit</a></td>
+	<td><a th:href="@{/deletePet/{id}(id=${currentPet.petId})}">Delete</a></td>
+	
 </tr>
 </table>
 </form>
@@ -78,8 +89,15 @@
 		<!-- ?below version is an attempt to address null values -->
 		<!--<td th:text="${currentVolunteer?.listOfFosterPets?.listOfFosterPets}" />-->
 	<!--  <td><a th:href="@{/addVolunteer/{volunteerId}(id=${currentVolunteer.volunteerId})}">Add a new volunteer</a></td> -->
+	<!-- make edit/delete more specific for each class
 	<td><a th:href="@{/edit/{volunteerId}(id=${currentVolunteer.volunteerId})}">Edit volunteer</a></td>
 	<td><a th:href="@{/delete/{volunteerId}(id=${currentVolunteer.volunteerId})}">Delete volunteer</a></td>
+	 -->
+	 <!-- <td><a th:href="@{/editVolunteer/{volunteerId}(id=${currentVolunteer.volunteerId})}">Edit volunteer</a></td>
+	<td><a th:href="@{/deleteVolunteer/{volunteerId}(id=${currentVolunteer.volunteerId})}">Delete volunteer</a></td>
+	 -->
+	<td><a th:href="@{/editVolunteer/{id}(id=${currentVolunteer.volunteerId})}">Edit volunteer</a></td>
+	<td><a th:href="@{/deleteVolunteer/{id}(id=${currentVolunteer.volunteerId})}">Delete volunteer</a></td>
 </tr>
 </table>
 </form>
@@ -93,7 +111,7 @@
 <form name="viewCustomersForm">
 <table>
 <tr th:each="currentCustomer : ${customers}">
-	<td th:text="Customer information:" />
+	<!--<td th:text="Customer information:" /> Thymeleaf error unable to parse-->
 	<td th:text="${currentCustomer.customerId}" />
 	<!-- <td th:text="${currentPet.fosterOwner.volunteerId}" /> -->
 	<td th:text="${currentCustomer.firstName}" />
@@ -108,8 +126,15 @@
 	<td th:text="${currentCustomer?.selectedPet?.selectedPet}" />
 	<!--<td th:text="${currentCustomer.selectedPet?.selectedPet}" />-->
 	<!-- ?above version is an  attempt to address null values <td th:text="${currentVolunteer.selectedPet}" />-->
+	<!-- make edit/delete calls more specific for each class
 	<td><a th:href="@{/edit/{customerId}(id=${currentCustomer.customerId})}">Edit customer</a></td>
 	<td><a th:href="@{/delete/{customerId}(id=${currentCustomer.customerId})}">Delete customer</a></td>
+	 -->
+	 <!-- <td><a th:href="@{/editCustomer/{customerId}(id=${currentCustomer.customerId})}">Edit customer</a></td>
+	<td><a th:href="@{/deleteCustomer/{customerId}(id=${currentCustomer.customerId})}">Delete customer</a></td>
+	 -->
+	<td><a th:href="@{/editCustomer/{id}(id=${currentCustomer.customerId})}">Edit customer</a></td>
+	<td><a th:href="@{/deleteCustomer/{id}(id=${currentCustomer.customerId})}">Delete customer</a></td>
 </tr>
 </table>
 </form>
@@ -120,6 +145,7 @@
 <a href="../addPet">Add a new pet</a><br />
 <!-- <a href="../inputPet">Add a new pet</a><br /> -->
 <a href="viewAllVolunteers">Refresh page/View all Volunteers</a><br />
+<a href="../viewAllVolunteers">Refresh page/View all Volunteers2</a><br />
 <a href="../addVolunteer">Add a new volunteer</a><br />
 <a href="viewAllCustomers">Refresh page/View all customers</a><br />
 <a href="../addCustomer">Add a new customer</a><br />

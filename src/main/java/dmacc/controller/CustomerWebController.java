@@ -44,7 +44,7 @@ public class CustomerWebController {
 	//@Autowired
 	//CustomerRepository customerRepo;
 	
-	// below method now working - routing to results.html page
+	// below method stopped working - was routing to results.html page
 	@GetMapping("/viewAllCustomers") //method to be run when /viewAllCustomers link is called 
 	public String viewAllCustomers(Model model) {
 //		if(customerService.getAllCustomers().isEmpty()) {
@@ -83,7 +83,8 @@ public class CustomerWebController {
 	// or if below method just needs to be added to the CustomerWebController to retrieve data from
 	// webpage for editing - if customer w/ specified id is not found then create null object to fill
 	// with data pulled from webpage
-	@GetMapping("/edit/{customerId}")
+	//@GetMapping("/edit/{customerId}")
+	@GetMapping("/editCustomer/{customerId}")
 	public String editCustomer(@PathVariable("customerId") long customerId, Model model) {
 		Customer customer = customerService.getCustomerById(customerId);
 		// ??would need to change above line to below if can't create method in CustomerService to address
@@ -91,10 +92,12 @@ public class CustomerWebController {
 		// customerId that was searched for is not found
 		//??Customer customer = customerRepo.findById(customerId).orElse(null);
 		model.addAttribute("newCustomer", customer);
+		model.addAttribute("selectablePets", petService.getAllPets());
 		return "input";
 	}
 	
-	@PostMapping("/update/{customerId}")
+	//@PostMapping("/update/{customerId}")
+	@PostMapping("/updateCustomer/{customerId}")
 	public String updateCustomer(@ModelAttribute("customer") Customer customer, Model model) {
 	//public String addVolunteer(@ModelAttribute Customer customer, Model model) {
 		//customerRepo.save(customer); // ?? does below replace this line??
@@ -112,7 +115,8 @@ public class CustomerWebController {
 	//?? re: above @DeleteMapping version of deleteCustomer method vs below @GetMapping version
 	// that calls it - if used committed out version w/o call to above method line of code will 
 	// need to add @Autowired CustomerRepository customerRepo creation
-	@GetMapping("/delete/{customerId}")
+	//@GetMapping("/delete/{customerId}")
+	@GetMapping("/deleteCustomer/{customerId}")
 	public String deleteCustomer(@PathVariable("customerId") long customerId, Model model) {
 		//Customer customer = customerRepo.findById(customerId).orElse(null);
 		//customerRepo.delete(customer);
@@ -189,7 +193,8 @@ public class CustomerWebController {
 	public String addNewCustomer(Model model) {
 		Customer customer = new Customer();
 		model.addAttribute("newCustomer", customer);
-		return "input";
+		//return "input";
+		return "customer";
 	}
 	
 	

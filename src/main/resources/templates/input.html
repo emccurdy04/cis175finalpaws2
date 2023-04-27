@@ -11,7 +11,8 @@
 <h3 th:case="null">No pet info submitted</h3>
 <div th:case="*">
 <h2>Pets: Insert a new Pet or Edit Pet</h2>
-<form name="addPetForm" th:object="${newPet}" th:action="@{/update/{petId}(id=${newPet.petId})}"
+<!-- th:action="@{/update/{petId}(id=${newPet.petId})}" th:action="@{/updatePet/{petId}(id=${newPet.petId})}"-->
+<form name="addPetForm" th:object="${newPet}" th:action="@{/updatePet/{id}(id=${newPet.petId})}"
  method='POST'>
 <!-- Adding in the th:field="*{variableName}" to each of the below input lines
 to pass the object over to the input.html & parse the object data into the
@@ -71,7 +72,10 @@ Email: <input name="volunteer.email" size="50" th:field="*{volunteer.email}"><br
 <h3 th:case="null">No volunteers information submitted</h3>
 <div th:case="*">
 <h3>Volunteers: Insert a new Volunteer or Edit Volunteer</h3>
-<form name="addVolunteerForm" th:object="${newVolunteer}" th:action="@{/update/{volunteerId}(id=${newVolunteer.volunteerId})}"
+<!--change th:action="@{/update/{volunteerId}(id=${newVolunteer.volunteerId})}" 
+to more specify controller th:action="@{volunteer/update/{volunteerId}(id=${newVolunteer.volunteerId})}"
+didn't work - still ambiguous handler method th:action="@{/updateVolunteer/{volunteerId}(id=${newVolunteer.volunteerId})}"-->
+<form name="addVolunteerForm" th:object="${newVolunteer}" th:action="@{/updateVolunteer/{id}(id=${newVolunteer.volunteerId})}"
  method='POST'>
 Enter/Update Volunteer information: <br>
 Enter/Update Volunteer's first name: <input name="firstName" size="24" th:field="*{firstName}"><br/>
@@ -86,16 +90,16 @@ Phone Number: <input name="phone" size="15" th:field="*{phone}"><br/>
 Email: <input name="email" size="50" th:field="*{email}" ><br/>
 <br/>
 Foster Pets: <!--  <input name="listOfFosterPets" th:field="*{listOfFosterPets}"><br/> -->
-<label for="selectedPet">Select Pet to add to list of foster pets: </label><br>
+<label for="selectedPet">Select Pet(s) to add to list of foster pets: </label><br>
 <!--  <select id="selectedPet" name="selectedPet" th:field="*{selectedPet}" required>-->
-<select id="selectedPet" name="listOfFosterPets" th:field="*{listOfFosterPets}">
+<!--  <select id="selectedPet" name="listOfFosterPets" th:field="*{listOfFosterPets}">
 	<option value="">--Select Pet--</option>
 	<option th:each="currentPet : ${selectablePets}" th:text="${currentPet.petName}" th:value="${currentPet.petId}"/>
 </select>
-<br/>
+<br/>-->
 
 <!-- ??Method of getting check boxes to select which pets the volunteer is fostering 
-now working/checkbox are now showing on webpage & populated w/ pets in DB, not tried adding yet-->
+now working/checkbox are now showing on webpage & populated w/ pets in DB, but adding not working yet-->
 <ul>
 	<li th:each="pet : ${selectablePets}">
 	<div class="addVolunteerForm checkbox">
@@ -106,8 +110,6 @@ now working/checkbox are now showing on webpage & populated w/ pets in DB, not t
 	</li>
 </ul>
 <br/>
-
-<br/>
 <input name="submit" type="submit" value="submit" /> 
 </form>
 </div>
@@ -117,7 +119,8 @@ now working/checkbox are now showing on webpage & populated w/ pets in DB, not t
 <h3 th:case="null">No customers information submitted</h3>
 <div th:case="*">
 <h3>Customers: Insert a new Customer or Edit Customer</h3>
-<form name="addCustomerForm" th:object="${newCustomer}" th:action="@{/update/{customerId}(id=${newCustomer.customerId})}"
+<!-- th:action="@{/update/{customerId}(id=${newCustomer.customerId})}" th:action="@{/updateCustomer/{customerId}(id=${newCustomer.customerId})}"-->
+<form name="addCustomerForm" th:object="${newCustomer}" th:action="@{/updateCustomer/{id}(id=${newCustomer.customerId})}"
  method='POST'>
 Enter/Update Customer information: <br>
 Enter/Update Customer's first name: <input name="firstName" size="24" th:field="*{firstName}"><br/>

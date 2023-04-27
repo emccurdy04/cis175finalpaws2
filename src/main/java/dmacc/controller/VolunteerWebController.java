@@ -47,7 +47,6 @@ public class VolunteerWebController {
 	// ? consider commented alterations for next method for use in Spring MVC Web controller?
 	// below method now working - routing to results.html page & displays message there if DB empty
 	@GetMapping("/viewAllVolunteers") //method to be run when /viewAllVolunteers link is called
-	// need to create this link on 
 	public String viewAllVolunteers(Model model) {
 		//List<Volunteer> volunteers = volunteerService.getAllVolunteers();
 //		if(volunteerService.getAllVolunteers().isEmpty()) {
@@ -55,6 +54,8 @@ public class VolunteerWebController {
 //			return "no volunteers found in DB";
 //		}
 		model.addAttribute("volunteers", volunteerService.getAllVolunteers());
+		// adding below line didn't resolve results page viewAllVolunteers error issues
+		//model.addAttribute("selectablePets", petService.getAllPets());
 		return "results";
 		//return "viewVolunteers"; //? make new/separate pages for viewing Volunteers/Customers/Pets
 	}
@@ -83,7 +84,9 @@ public class VolunteerWebController {
 	// or if below method just needs to be added to the VolunteerWebController to retrieve data from
 	// webpage for editing - if volunteer w/ specified id is not found then create null object to fill
 	// with data pulled from webpage
-	@GetMapping("/edit/{volunteerId}")
+	//@GetMapping("/edit/{volunteerId}")
+	//@GetMapping("/editVolunteer/{volunteerId}")
+	@GetMapping("/editVolunteer/{volunteerId}")
 	public String editVolunteer(@PathVariable("volunteerId") long volunteerId, Model model) {
 		Volunteer volunteer = volunteerService.getVolunteerById(volunteerId);
 		// ??would need to change above line to below if can't create method in VolunteerService to address
@@ -91,11 +94,15 @@ public class VolunteerWebController {
 		// volunteerId that was searched for is not found
 		//??Volunteer volunteer = volunteerRepo.findById(volunteerId).orElse(null);
 		model.addAttribute("newVolunteer", volunteer);
+		//??model.addAttribute("selectablePets", petService.getAllPets()); or need if/else?
 		return "input";
 		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
 	
-	@PostMapping("/update/{volunteerId}")
+	// trial change below to more specific
+	//@PostMapping("/update/{volunteerId}")
+	//@PostMapping("volunteer/update/{volunteerId}")
+	@PostMapping("/updateVolunteer/{volunteerId}")
 	public String updateVolunteer(@ModelAttribute("volunteer") Volunteer volunteer, Model model) {
 		volunteerService.saveVolunteerEdit(volunteer);
 		return viewAllVolunteers(model);
@@ -114,7 +121,8 @@ public class VolunteerWebController {
 	//?? re: above @DeleteMapping version of deleteVolunteer method vs below @GetMapping version
 	// that calls it - if used committed out version w/o call to above method line of code will 
 	// need to add @Autowired VolunteerRepository volunteerRepo creation
-	@GetMapping("/delete/{volunteerId}")
+	//@GetMapping("/delete/{volunteerId}")
+	@GetMapping("/deleteVolunteer/{volunteerId}")
 	public String deleteVolunteer(@PathVariable("volunteerId") long volunteerId, Model model) {
 		//Volunteer volunteer = volunteerRepo.findById(volunterId).orElse(null);
 		//volunteerRepo.delete(volunteer);
