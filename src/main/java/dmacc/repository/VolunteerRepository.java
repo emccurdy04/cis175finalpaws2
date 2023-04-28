@@ -10,6 +10,7 @@ package dmacc.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import dmacc.beans.Pet;
 import dmacc.beans.Volunteer;
 
 /**
@@ -27,6 +28,10 @@ import dmacc.beans.Volunteer;
 public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
 
 	Volunteer findVolunteerByEmail(String email);
+
+	//Pet getFosterPet(Volunteer volunteer);
+
+	//Pet findFosterPet(Volunteer volunteer);
 
 	//Volunteer findByFosterPet(long petId);
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dmacc.beans.Customer;
 import dmacc.beans.Pet;
 import dmacc.beans.Volunteer;
 import dmacc.repository.PetRepository;
@@ -62,6 +63,27 @@ public class VolunteerService {
 	
 	public Volunteer getVolunteerByEmail(String email) {
 		return volunteerRepo.findVolunteerByEmail(email);
+	}
+	
+//	public Pet getFosterPet(Volunteer volunteer) {
+//		Pet fosterPet = new Pet();
+//		//fosterPet = volunteerRepo.findFosterPet(volunteer);
+//		//fosterPet = volunteer.getFosterPet();
+//		fosterPet = volunteer.volunteerFosterPet(volunteer);
+//		return fosterPet;
+//		//return volunteerRepo.getFosterPet(volunteer);
+//	}
+	
+	public Pet getFosterPet(long volunteerId) {
+		Volunteer volunteer = volunteerRepo.findById(volunteerId).get();
+		return volunteer.getFosterPet();
+	}
+	
+	public Pet getFosterPet(Volunteer volunteer) {
+		//Volunteer volunteer = volunteerRepo.findById(volunteerId).get();
+		Pet fosterPet = volunteer.getFosterPet();
+		return fosterPet;
+		//return volunteer.getFosterPet();
 	}
 	
 	// ?? In future create a method that randomly selects a volunteer so volunteer info can

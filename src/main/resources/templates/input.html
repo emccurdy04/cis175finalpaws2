@@ -91,8 +91,10 @@ Zip: <input name="zip" size="9" th:field="*{zip}"><br/>
 Phone Number: <input name="phone" size="15" th:field="*{phone}"><br/>
 Email: <input name="email" size="50" th:field="*{email}" ><br/>
 <br/>
-Foster Pets: <!--  <input name="listOfFosterPets" th:field="*{listOfFosterPets}"><br/> -->
-<label for="selectedPet">Select Pet(s) to add to list of foster pets: </label><br>
+<!-- Foster Pets:--> <!--  <input name="listOfFosterPets" th:field="*{listOfFosterPets}"><br/> -->
+<!--<label for="selectedPet">Select Pet(s) to add to list of foster pets: </label><br> -->
+<!--Foster Pets: <!--  <input name="listOfFosterPets" th:field="*{listOfFosterPets}"><br/> -->
+<!--<label for="selectedPet">Select Pet(s) to add to list of foster pets: </label><br>-->
 <!--  <select id="selectedPet" name="selectedPet" th:field="*{selectedPet}" required>-->
 <!--  <select id="selectedPet" name="listOfFosterPets" th:field="*{listOfFosterPets}">
 	<option value="">--Select Pet--</option>
@@ -102,10 +104,23 @@ Foster Pets: <!--  <input name="listOfFosterPets" th:field="*{listOfFosterPets}"
 
 <!-- ??Method of getting check boxes to select which pets the volunteer is fostering 
 now working/checkbox are now showing on webpage & populated w/ pets in DB, but adding not working yet-->
-<ul>
+<!-- <ul>
 	<li th:each="pet : ${selectablePets}">
 	<div class="addVolunteerForm checkbox">
 		<input type="checkbox" th:field="*{listOfFosterPets}" th:value="${pet.petId}"> 
+		<!-- <input type="checkbox" th:field="*{listOfFosterPets}" th:value="${pet}"/>-->
+		<!-- <input type="checkbox" th:field="*{selectablePets}" th:value="${pet.petId"}>-->
+		<!-- <label th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}" ></label> -->
+		<!-- <label th:for="#${pet.petId}" th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}" ></label>-->
+	<!-- </div>
+	</li>
+</ul> -->
+Foster Pet: <!--  <input name="listOfFosterPets" th:field="*{listOfFosterPets}"><br/> -->
+<label for="selectedPet">Select Foster Pet: </label><br>
+<ul>
+	<li th:each="pet : ${selectablePets}">
+	<div class="addVolunteerForm radio">
+		<input type="radio" th:field="*{fosterPet}" th:value="${pet.petId}"> 
 		<!-- <input type="checkbox" th:field="*{listOfFosterPets}" th:value="${pet}"/>-->
 		<!-- <input type="checkbox" th:field="*{selectablePets}" th:value="${pet.petId"}>-->
 		<label th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}" ></label> 
@@ -113,6 +128,7 @@ now working/checkbox are now showing on webpage & populated w/ pets in DB, but a
 	</div>
 	</li>
 </ul>
+
 <br/>
 <input name="submit" type="submit" value="submit" /> 
 </form>

@@ -65,14 +65,23 @@ public class VolunteerWebController {
 //			//return "viewVolunteers"; //? make new/separate pages for viewing Volunteers/Customers/Pets
 //		}
 		List<Volunteer> volunteers = volunteerService.getAllVolunteers();
+//		for (Volunteer volunteer : volunteers) {
+//			ArrayList<Pet> listOfFosterPets = volunteer.getListOfFosterPets();
+//			if (listOfFosterPets != null) {
+//				volunteer.setListOfFosterPets(listOfFosterPets);
+//				model.addAttribute("listOfFosterPets", listOfFosterPets);
+//			} else {
+//				volunteer.setListOfFosterPets(null);
+//				model.addAttribute("listOfFosterPets", listOfFosterPets);
+//			}
 		for (Volunteer volunteer : volunteers) {
-			ArrayList<Pet> listOfFosterPets = volunteer.getListOfFosterPets();
-			if (listOfFosterPets != null) {
-				volunteer.setListOfFosterPets(listOfFosterPets);
-				model.addAttribute("listOfFosterPets", listOfFosterPets);
+			Pet fosterPet = volunteerService.getFosterPet(volunteer);
+			if (fosterPet != null) {
+				volunteer.setFosterPet(fosterPet);
+				model.addAttribute("fosterPet", fosterPet);
 			} else {
-				volunteer.setListOfFosterPets(null);
-				model.addAttribute("listOfFosterPets", listOfFosterPets);
+				volunteer.setFosterPet(null);
+				model.addAttribute("fosterPet", fosterPet);
 			}
 			//volunteer.setListOfFosterPets(listOfFosterPets);
 			//model.addAttribute("listOfFosterPets", listOfFosterPets);
