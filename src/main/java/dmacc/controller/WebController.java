@@ -22,6 +22,7 @@ import dmacc.repository.PetRepository;
 import dmacc.service.PetService;
 import dmacc.service.VolunteerService;
 import dmacc.beans.Pet;
+import dmacc.beans.Volunteer;
 import dmacc.repository.CustomerRepository;
 import dmacc.beans.Customer;
 /**
@@ -169,7 +170,7 @@ public class WebController {
 	
 	/**
 	 * Method to direct to webpage to view all Pet entity/objects in PAWS DB pets table
-	 * - use 2nd version if want both home/index or viewAll paths to go to this webpage
+	 * - use 3rd version if want both home/index or viewAll paths to go to this webpage
 	 */
 	// version in lab w/o / in front of viewAll will see if helps white label error page issues
 	@GetMapping("viewAll") 
@@ -180,7 +181,7 @@ public class WebController {
 //			//return addNewPet(model);
 //			return "no pets found in DB";
 //		}
-//		
+//		model.addAttribute("pets", petService.getAllPets());
 		model.addAttribute("pets", repo.findAll());
 		return "results";
 	}
@@ -194,63 +195,70 @@ public class WebController {
 		model.addAttribute("newPet", pet);
 		// ??below line not working to get list of volunteers to send to input page for display
 		// same method worked in customer & volunteer webcontrollers ??
-		// below line causes it go to 'error' page - commenting out 
+		// below lines all causes it go to 'error' page - commenting out 
+		//List<Volunteer> volunteers = volunteerService.getAllVolunteers();
 		//model.addAttribute("selectableVolunteers", volunteerService.getAllVolunteers());
+		//model.addAttribute("selectableVolunteers", volunteers);
+		
 		return "input";
 	}
-	
-	@PostMapping("/updatePet")
+
+	//@PostMapping("/updatePet")
+	@PostMapping("/updatePet/{petId}")
 	//@PostMapping("/inputPet")
 	public String addNewPet(@ModelAttribute("pet") Pet pet, Model model) {
 		repo.save(pet);
-		//return viewAllPets(model);
+		// either repo or petService versions should work
+		//petService.savePetEdit(pet);
+		//model.addAttribute("pet", petService.savePetEdit(pet));
+		model.addAttribute("pet", pet);
 		return viewAllPets(model);
 	}
-	
-	// can likely remove below method - no longer needed?
-//	@GetMapping("/addPet")
-//	public String addPet(Model model) {
-//		Pet pet = new Pet();
-//		model.addAttribute("newPet", pet);
-//		return "input";
-//	}
 	
 	//@PostMapping("/update/{petId}")
-	@PostMapping("/addPet")
-	public String addPet(@ModelAttribute("pet")Pet pet, Model model) {
-		petService.savePetEdit(pet);
-		return viewAllPets(model);
-	}
+//	@PostMapping("/addPet")
+//	public String addPet(@ModelAttribute("pet")Pet pet, Model model) {
+//		petService.savePetEdit(pet);
+//		return viewAllPets(model);
+//	}
 	
 	/**
 	 * ???not sure which version of 1st line of method to use long petId vs long id
 	 * trial 1st w/ long petId version 
 	 */
-	//below version not working ?need more specific edit/delete for each class?
-	//@GetMapping("/edit/{petId}")
+	//below version not working needed more specific edit/delete for each class
 	@GetMapping("/editPet/{petId}")
-	//@GetMapping("/edit/{id}")
+	//@GetMapping("/editPet/{id}")
 	public String showUpdatePet(@PathVariable("petId") long petId, Model model) {
 	//public String showUpdatePet(@PathVariable("petId") long id, Model model) {
 		Pet pet = repo.findById(petId).orElse(null);
 		//Pet pet = repo.findById(id).orElse(null);
-		model.addAttribute("newPet", pet);
+		//model.addAttribute("newPet", pet);
+		// below if/else didn't work for when Pets fosterOwner field null
+//		if (pet.getFosterOwner() == null) {
+//			model.addAttribute("newPet", pet);
+//			model.addAttribute("selectableVolunteers", volunteerService.getAllVolunteers());
+//			return "input";
+//		} else { //(pet.getFosterOwner() != null) {
+//			model.addAttribute("newPet", pet);
+//			return "input";
+//		}
 		// ?similar below works w/ CustomerWebController editCustomer but not here?
 		//model.addAttribute("selectableVolunteers", volunteerService.getAllVolunteers());
+		model.addAttribute("newPet", pet);
 		return "input";
-		//return "input.html";
 	}
 	
 	/**
 	 * ??not sure whether best to use petId vs id
 	 */
 	//@PostMapping("/update/{petId}")
-	@PostMapping("/updatePet/{petId}")
-	//@PostMapping("/update/{id}")
-	public String editPet(Pet pet, Model model) {
-		repo.save(pet);
-		return viewAllPets(model);
-	}
+//	@PostMapping("/updatePet/{petId}")
+//	//@PostMapping("/update/{id}")
+//	public String editPet(Pet pet, Model model) {
+//		repo.save(pet);
+//		return viewAllPets(model);
+//	}
 	
 	
 	/**

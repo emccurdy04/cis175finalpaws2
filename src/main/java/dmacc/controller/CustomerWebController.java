@@ -50,9 +50,7 @@ public class CustomerWebController {
 //		if(customerService.getAllCustomers().isEmpty()) {
 //			//return addCustomer(model);
 //			return "no customers found in DB";
-//		}
-		// see if change lining line 55 to version on 56 caused issues displaying results page
-		//model.addAttribute("customer", customerService.getAllCustomers()); 
+//		} 
 		model.addAttribute("customers", customerService.getAllCustomers());
 		return "results";
 	}
@@ -98,11 +96,55 @@ public class CustomerWebController {
 	
 	//@PostMapping("/update/{customerId}")
 	@PostMapping("/updateCustomer/{customerId}")
-	public String updateCustomer(@ModelAttribute("customer") Customer customer, Model model) {
+	//@PostMapping("/updateCustomer/{id}")
+	public String updateCustomer(@ModelAttribute("customer") Customer customer, Model model, @PathVariable("customerId") long customerId) {
+	//public String updateCustomer(@ModelAttribute("customer") Customer customer, Model model) {
 	//public String addVolunteer(@ModelAttribute Customer customer, Model model) {
-		//customerRepo.save(customer); // ?? does below replace this line??
-		customerService.saveCustomerEdit(customer);
-		return viewAllCustomers(model);
+		if (customerId != 0) {
+			// set value of Pet object identifier before calling save() method
+			//long petId = (long) model.getAttribute("selectedPet");
+			Pet pet = customer.getSelectedPet();
+			long petId = pet.getPetId();
+			//customer.setSelectedPet(pet);
+			model.addAttribute("selectedPet", petService.getPetById(petId));
+			//customerRepo.save(customer); // ?? does below replace this line??
+			customerService.saveCustomerEdit(customer);
+		} else if (customerId == 0) {
+			// set value of Pet object identifier before calling save() method
+			//long petId = (long) model.getAttribute("selectedPet");
+			Pet pet = customer.getSelectedPet();
+			long petId = pet.getPetId();
+			//customer.setSelectedPet(pet);
+			model.addAttribute("selectedPet", petService.getPetById(petId));
+			//customerRepo.save(customer); // ?? does below replace this line??
+			customerService.saveCustomerEdit(customer);
+			// then get/set value for new customer's customerId object identifier too
+			long newCustomerId = customer.getCustomerId();
+			model.addAttribute(newCustomerId);
+			//model.addAttribute("customerId", customerService.getCustomerById(newCustomerId));
+			//model.addAttribute(customer.getCustomerId());
+			//System.out.println(customer.getCustomerId());
+		}
+//		// set value of Pet object identifier before calling save() method
+//		// ?? set value for new customer's customerId object identifier too?
+//		//long petId = (long) model.getAttribute("selectedPet");
+//		Pet pet = customer.getSelectedPet();
+//		long petId = pet.getPetId();
+//		//customer.setSelectedPet(pet);
+//		model.addAttribute("selectedPet", petService.getPetById(petId));
+//		//customerRepo.save(customer); // ?? does below replace this line??
+//		customerService.saveCustomerEdit(customer);
+//		//customer.getCustomerId();
+//		//long petId = customer.selectedPet;
+//		//model.getAttribute("selectedPet");
+//		//model.getAttribute("customerId");
+//		//model.addAttribute("selectedPet", petService.getPetById(petId));
+//		//long customerId = customerId;
+//		//customer = customerService.getCustomerById(customerId);
+//		//Customer updateCustomer = customerService.getCustomerById(customerId);
+		//return viewAllCustomers(model);
+		model.addAttribute("customers", customerService.getAllCustomers());
+		return "results";
 	}
 	
 	@DeleteMapping("/customer/{customerId}")
