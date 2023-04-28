@@ -103,9 +103,11 @@ now working/checkbox are now showing on webpage & populated w/ pets in DB, but a
 <ul>
 	<li th:each="pet : ${selectablePets}">
 	<div class="addVolunteerForm checkbox">
-		<input type="checkbox" th:field="*{listOfFosterPets}" th:value="${pet.petId}">
+		<input type="checkbox" th:field="*{listOfFosterPets}" th:value="${pet.petId}"> 
+		<!-- <input type="checkbox" th:field="*{listOfFosterPets}" th:value="${pet}"/>-->
 		<!-- <input type="checkbox" th:field="*{selectablePets}" th:value="${pet.petId"}>-->
-		<label th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}" ></label>
+		<label th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}" ></label> 
+		<!-- <label th:for="#${pet.petId}" th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}" ></label>-->
 	</div>
 	</li>
 </ul>
@@ -169,15 +171,17 @@ by customer??? th:field="*{selectedPet} (id=${pet.petId})" -->
 </div>
 </div>
 <br/>
-<a href="viewAll">View all Pets</a><br />
+<!--<a href="viewAll">View all Pets</a><br />-->
 <!-- might need to switch above to below version & change related WebController's method @GetMapping
-URI expression to match this html page anchor link. 
-<a href="viewAllPets">View all Pets</a> -->
+URI expression to match this html page anchor link. -->
+<a href="../viewAllPets">View all Pets</a><br/>
 <a href="../addPet">Add a new Pet</a><br />
-<a href="viewAllVolunteers">View all Volunteers</a><br />
+<a href="../viewAllVolunteers">View all Volunteers</a><br />
 <a href="../addVolunteer">Add a new volunteer</a><br />
-<a href="viewAllCustomers">View all customers</a><br />
+<!-- <a href="viewAllCustomers">View all customers</a><br /> -->
+<a href="../viewAllCustomers">View all customers</a><br />
 <a href="../addCustomer">Add a new customer</a><br />
-<a href="index.html">Return to home page</a>
+<!-- <a href="index.html">Return to home page</a> -->
+<a href="../index.html">Return to home page</a>
 </body>
 </html>

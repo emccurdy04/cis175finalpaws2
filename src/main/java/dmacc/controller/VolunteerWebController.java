@@ -46,31 +46,34 @@ public class VolunteerWebController {
 	
 	// ? consider commented alterations for next method for use in Spring MVC Web controller?
 	// below method now working - routing to results.html page & displays message there if DB empty
-	@GetMapping("/viewAllVolunteers") //method to be run when /viewAllVolunteers link is called
+	//@GetMapping("/viewAllVolunteers") //method to be run when /viewAllVolunteers link is called
+	@GetMapping({"/viewAllVolunteers", "viewAllVolunteers"})
 	public String viewAllVolunteers(Model model) {
 		//List<Volunteer> volunteers = volunteerService.getAllVolunteers();
-//		if(volunteerService.getAllVolunteers().isEmpty()) {
-//			//return addVolunteer(model);
-//			return "no volunteers found in DB";
-//		}
-		model.addAttribute("volunteers", volunteerService.getAllVolunteers());
-		// adding below line didn't resolve results page viewAllVolunteers error issues
-		//model.addAttribute("selectablePets", petService.getAllPets());
-		return "results";
-		//return "viewVolunteers"; //? make new/separate pages for viewing Volunteers/Customers/Pets
+		if(volunteerService.getAllVolunteers().isEmpty()) {
+			//return addVolunteer(model);
+			return "no volunteers found in DB";
+		} else {
+			model.addAttribute("volunteers", volunteerService.getAllVolunteers());
+			// adding below line didn't resolve results page viewAllVolunteers error issues
+			//model.addAttribute("selectablePets", petService.getAllPets());
+			return "results";
+			//return "viewVolunteers"; //? make new/separate pages for viewing Volunteers/Customers/Pets
+		}
+		
 	}
 	
-//	@GetMapping("/viewAllVolunteers")
-//	//@GetMapping("/volunteers") //?? unsure which version of GetMapping URI should use here
-//	public List<Volunteer> getAllVolunteers(){
-//	//public String getAllVolunteers(){
-//		//List<Volunteer> volunteers = volunteerService.getAllVolunteers()
-//		// model.addAttribute("volunteers", volunteerService.getAllVolunteers());
-//		// ??or model.addAttribute("volunteers", volunteerRepo.findAll());
-//		// ??if do above line code version would need to add Autowired VolunteerRepository to this class
-//		// return "results";
-//		return volunteerService.getAllVolunteers();
-//	}
+	//@GetMapping("/viewAllVolunteers")
+	@GetMapping("/volunteers") //?? unsure which version of GetMapping URI should use here
+	public List<Volunteer> getAllVolunteers(){
+	//public String getAllVolunteers(){
+		//List<Volunteer> volunteers = volunteerService.getAllVolunteers()
+		// model.addAttribute("volunteers", volunteerService.getAllVolunteers());
+		// ??or model.addAttribute("volunteers", volunteerRepo.findAll());
+		// ??if do above line code version would need to add Autowired VolunteerRepository to this class
+		// return "results";
+		return volunteerService.getAllVolunteers();
+	}
 		
 	@GetMapping("/volunteer/{volunteerId}")
 	// ?? unsure if should use long id vs long volunteerId in next line - start w/ latter version
@@ -84,8 +87,7 @@ public class VolunteerWebController {
 	// or if below method just needs to be added to the VolunteerWebController to retrieve data from
 	// webpage for editing - if volunteer w/ specified id is not found then create null object to fill
 	// with data pulled from webpage
-	//@GetMapping("/edit/{volunteerId}")
-	//@GetMapping("/editVolunteer/{volunteerId}")
+	//@GetMapping("/editVolunteer/{id}")
 	@GetMapping("/editVolunteer/{volunteerId}")
 	public String editVolunteer(@PathVariable("volunteerId") long volunteerId, Model model) {
 		Volunteer volunteer = volunteerService.getVolunteerById(volunteerId);
@@ -95,6 +97,7 @@ public class VolunteerWebController {
 		//??Volunteer volunteer = volunteerRepo.findById(volunteerId).orElse(null);
 		model.addAttribute("newVolunteer", volunteer);
 		//??model.addAttribute("selectablePets", petService.getAllPets()); or need if/else?
+		// ?? didn't work in WebController for pets if fosterOwner null
 		return "input";
 		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
@@ -105,7 +108,10 @@ public class VolunteerWebController {
 	@PostMapping("/updateVolunteer/{volunteerId}")
 	public String updateVolunteer(@ModelAttribute("volunteer") Volunteer volunteer, Model model) {
 		volunteerService.saveVolunteerEdit(volunteer);
+		// adding below line &/or changing return doesn't resolve issues
+		model.addAttribute("volunteer", volunteer);
 		return viewAllVolunteers(model);
+		//return "results";
 	}
 	
 	//?? re: above @DeleteMapping version of deleteVolunteer method vs below @GetMapping version
@@ -130,13 +136,6 @@ public class VolunteerWebController {
 		return viewAllVolunteers(model);
 	}
 	
-	
-//	//@PostMapping("/addVolunteer") // ?? this version vs below
-//	@PostMapping("/volunteer")
-//	public void addVolunteer(@RequestBody Volunteer volunteer) {
-//		volunteerService.saveVolunteerEdit(volunteer);
-//	}
-	
 	//@GetMapping("/inputVolunteer")
 	@GetMapping("/addVolunteer")
 	public String inputVolunteer(Model model) {
@@ -144,6 +143,16 @@ public class VolunteerWebController {
 		model.addAttribute("newVolunteer", volunteer);
 		model.addAttribute("selectablePets", petService.getAllPets());
 		return "input";
+	}
+	
+	@PostMapping("/addVolunteer") // ?? this version vs below
+//	@PostMapping("/volunteer")
+	public String addVolunteer(@ModelAttribute("newVolunteer") Volunteer volunteer, Model model) {
+	//public void addVolunteer(@RequestBody Volunteer volunteer) {
+		volunteerService.saveVolunteerEdit(volunteer);
+		// trial adding model.addAttribute line
+		model.addAttribute("newVolunteer", volunteer);
+		return viewAllVolunteers(model);
 	}
 	
 	// ?? below two methods are alternatives of above for use in Spring MVC web controller 
