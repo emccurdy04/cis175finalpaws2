@@ -72,7 +72,9 @@
 	<td th:text="${currentVolunteer.zip}" />
 	<td th:text="${currentVolunteer.phone}" />
 	<td th:text="${currentVolunteer.email}" />
-	
+	<!-- below line only works if fosterPet petId field of volunteers table is null & unable to get
+	it to work w/ any methods tried so commented out -->
+	<!-- <td th:text="'Foster Pet: ' + ${currentVolunteer.fosterPet?.fosterPet}"> -->
 	<!-- every method tried to get volunteers to display on results page didn't work
 	- broke & unable to find a fix, even w/ removing listOfFosterPets field from results page -->
 	<!-- ??May need to change how below ArrayList is resulted to display in rows for each pet -->

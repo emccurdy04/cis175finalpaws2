@@ -14,7 +14,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -53,14 +56,17 @@ public class Volunteer {
 	private String email;
 	
 	// future addition - since a Volunteer can foster more than 1 pet
-	@OneToMany //?(MappedBy='pet')
+	//@OneToMany //?(MappedBy='pet')
 	//@OneToMany(MappedBy='pet', fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	//@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER, orphanRemoval=true)
 	//@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.LAZY, orphanRemoval=true)
-	private ArrayList<Pet> listOfFosterPets;
+	//private ArrayList<Pet> listOfFosterPets;
 	//?? initialize ArrayList here?
 	//private ArrayList<Pet> listOfFosterPets = new ArrayList<>();
-	//private Pet fosterPet;
+	@OneToOne
+	//@MapsId
+	//(MappedBy='pet')//@JoinColumn(name='petId')
+	private Pet fosterPet;
 	
 //	/**
 //	 * Non-Default constructor - takes all parameters except volunteerId & ArrayList<Pet>
@@ -146,10 +152,13 @@ public class Volunteer {
 	 * @param zip
 	 * @param phone
 	 * @param email
-	 * @param listOfFosterPets
+	 * @param listOfFosterPets - removed arrrylist
+	 * @param fosterPet
 	 */
+	//public Volunteer(String firstName, String lastName, String street, String city, String state, String zip,
+			//String phone, String email, ArrayList<Pet> listOfFosterPets) {
 	public Volunteer(String firstName, String lastName, String street, String city, String state, String zip,
-			String phone, String email, ArrayList<Pet> listOfFosterPets) {
+			String phone, String email, Pet fosterPet) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -159,7 +168,8 @@ public class Volunteer {
 		this.zip = zip;
 		this.phone = phone;
 		this.email = email;
-		this.listOfFosterPets = listOfFosterPets;
+		//this.listOfFosterPets = listOfFosterPets;
+		this.fosterPet = fosterPet;
 	}
 	
 	
@@ -202,8 +212,17 @@ public class Volunteer {
     @JoinColumn(name="CUST_ID") // join column is in table for Order
     public Set<Order> getOrders() {return orders;} 
 	 */
-	public void addPet(Pet pet) {
-		this.listOfFosterPets.add(pet);
+//	public void addPet(Pet pet) {
+//		this.listOfFosterPets.add(pet);
+//	}
+	
+	public Pet volunteerFosterPet(Volunteer volunteer) {
+		//Pet fosterPet = volunteer.getFosterPet();
+		//this.getFosterPet(volunteer);
+		Pet fosterPet = volunteer.fosterPet;
+		return fosterPet;
+		//return this.fosterPet;
 	}
 
+	
 }
