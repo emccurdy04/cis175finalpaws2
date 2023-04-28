@@ -47,12 +47,31 @@ public class CustomerWebController {
 	// below method stopped working - was routing to results.html page
 	@GetMapping("/viewAllCustomers") //method to be run when /viewAllCustomers link is called 
 	public String viewAllCustomers(Model model) {
-//		if(customerService.getAllCustomers().isEmpty()) {
-//			//return addCustomer(model);
-//			return "no customers found in DB";
-//		} 
+		if(customerService.getAllCustomers().isEmpty()) {
+			//return addCustomer(model);
+			return "no customers found in DB";
+		}
+		//model.addAttribute("customers", customerService.getAllCustomers());
+		// below 2 lines equivalent to above
+		List<Customer> customers = customerService.getAllCustomers();
+		//model.addAttribute("customers", customers);
+		for (Customer customer : customers) {
+			Pet selectedPet = customerService.getSelectedPet(customer);
+			//customer.setSelectedPet(selectedPet);
+			if (selectedPet != null) {
+				customer.setSelectedPet(selectedPet);
+				model.addAttribute("selectedPet", selectedPet);
+				//model.addAttribute(selectedPet);
+				//model.addAttribute("selectedPet", customer.setSelectedPet(selectedPet));
+			//if (customerService.getSelectedPet(customer).isEmpty()) {
+			} else {
+				customer.setSelectedPet(null);
+				model.addAttribute("selectedPet", selectedPet);
+			}
+		}
 		model.addAttribute("customers", customerService.getAllCustomers());
 		return "results";
+		//return "customers/results";
 	}
 	
 	//?? not sure if below method needs to be changed as shown in commented lines for use in 
@@ -106,7 +125,9 @@ public class CustomerWebController {
 			Pet pet = customer.getSelectedPet();
 			long petId = pet.getPetId();
 			//customer.setSelectedPet(pet);
-			model.addAttribute("selectedPet", petService.getPetById(petId));
+			//model.addAttribute("selectedPet", petService.getPetById(petId));
+			// both above & below set pet id in customer table, but then errors/won't display results page
+			model.addAttribute("selectedPet", pet);
 			//customerRepo.save(customer); // ?? does below replace this line??
 			customerService.saveCustomerEdit(customer);
 		} else if (customerId == 0) {
@@ -115,7 +136,9 @@ public class CustomerWebController {
 			Pet pet = customer.getSelectedPet();
 			long petId = pet.getPetId();
 			//customer.setSelectedPet(pet);
-			model.addAttribute("selectedPet", petService.getPetById(petId));
+			//model.addAttribute("selectedPet", petService.getPetById(petId));
+			// both above & below set pet id in customer table, but then errors/won't display results page
+			model.addAttribute("selectedPet", pet);
 			//customerRepo.save(customer); // ?? does below replace this line??
 			customerService.saveCustomerEdit(customer);
 			// then get/set value for new customer's customerId object identifier too
@@ -142,9 +165,10 @@ public class CustomerWebController {
 //		//long customerId = customerId;
 //		//customer = customerService.getCustomerById(customerId);
 //		//Customer updateCustomer = customerService.getCustomerById(customerId);
-		//return viewAllCustomers(model);
+		
 		model.addAttribute("customers", customerService.getAllCustomers());
-		return "results";
+		//return "results";
+		return viewAllCustomers(model);
 	}
 	
 	@DeleteMapping("/customer/{customerId}")

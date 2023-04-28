@@ -60,7 +60,8 @@ public class Volunteer {
 	private ArrayList<Pet> listOfFosterPets;
 	//?? initialize ArrayList here?
 	//private ArrayList<Pet> listOfFosterPets = new ArrayList<>();
-
+	//private Pet fosterPet;
+	
 //	/**
 //	 * Non-Default constructor - takes all parameters except volunteerId & ArrayList<Pet>
 //	 * @param firstName
@@ -161,5 +162,48 @@ public class Volunteer {
 		this.listOfFosterPets = listOfFosterPets;
 	}
 	
+	
+	/**
+	 * constructor/method for adding pet to the listOfFosterPets arraylist
+	 * Example 1: One-to-Many association using generics
+
+    // In Customer class:
+
+    @OneToMany(cascade=ALL, mappedBy="customer")
+    public Set<Order> getOrders() { return orders; }
+
+    In Order class:
+
+    @ManyToOne
+    @JoinColumn(name="CUST_ID", nullable=false)
+    public Customer getCustomer() { return customer; }
+
+
+    Example 2: One-to-Many association without using generics
+
+    // In Customer class:
+
+    @OneToMany(targetEntity=com.acme.Order.class, cascade=ALL,
+                mappedBy="customer")
+    public Set getOrders() { return orders; }
+
+    // In Order class:
+
+    @ManyToOne
+    @JoinColumn(name="CUST_ID", nullable=false)
+    public Customer getCustomer() { return customer; }
+
+
+    Example 3: Unidirectional One-to-Many association using a foreign key mapping
+
+    // In Customer class:
+
+    @OneToMany(orphanRemoval=true)
+    @JoinColumn(name="CUST_ID") // join column is in table for Order
+    public Set<Order> getOrders() {return orders;} 
+	 */
+	public void addPet(Pet pet) {
+		this.listOfFosterPets.add(pet);
+	}
 
 }

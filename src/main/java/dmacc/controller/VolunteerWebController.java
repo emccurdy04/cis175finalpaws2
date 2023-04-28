@@ -8,6 +8,7 @@
 package dmacc.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import dmacc.beans.Pet;
 import dmacc.beans.Volunteer;
+import dmacc.repository.VolunteerRepository;
 import dmacc.service.PetService;
 import dmacc.service.VolunteerService;
 
@@ -38,8 +41,8 @@ public class VolunteerWebController {
 	VolunteerService volunteerService;
 	
 	//?? might need to add below for Spring MVC web controller - leave commented out for now
-	//@Autowired
-	//VolunteerRepository volunteerRepo;
+	@Autowired
+	VolunteerRepository volunteerRepo;
 	
 	@Autowired
 	PetService petService;
@@ -50,17 +53,41 @@ public class VolunteerWebController {
 	@GetMapping({"/viewAllVolunteers", "viewAllVolunteers"})
 	public String viewAllVolunteers(Model model) {
 		//List<Volunteer> volunteers = volunteerService.getAllVolunteers();
-		if(volunteerService.getAllVolunteers().isEmpty()) {
-			//return addVolunteer(model);
-			return "no volunteers found in DB";
-		} else {
-			model.addAttribute("volunteers", volunteerService.getAllVolunteers());
-			// adding below line didn't resolve results page viewAllVolunteers error issues
-			//model.addAttribute("selectablePets", petService.getAllPets());
-			return "results";
-			//return "viewVolunteers"; //? make new/separate pages for viewing Volunteers/Customers/Pets
+		// if/else didn't resolve results page display issues
+//		if(volunteerService.getAllVolunteers().isEmpty()) {
+//			//return addVolunteer(model);
+//			return "no volunteers found in DB";
+//		} else {
+//			model.addAttribute("volunteers", volunteerService.getAllVolunteers());
+//			// adding below line didn't resolve results page viewAllVolunteers error issues
+//			//model.addAttribute("selectablePets", petService.getAllPets());
+//			return "results";
+//			//return "viewVolunteers"; //? make new/separate pages for viewing Volunteers/Customers/Pets
+//		}
+		List<Volunteer> volunteers = volunteerService.getAllVolunteers();
+		for (Volunteer volunteer : volunteers) {
+			ArrayList<Pet> listOfFosterPets = volunteer.getListOfFosterPets();
+			if (listOfFosterPets != null) {
+				volunteer.setListOfFosterPets(listOfFosterPets);
+				model.addAttribute("listOfFosterPets", listOfFosterPets);
+			} else {
+				volunteer.setListOfFosterPets(null);
+				model.addAttribute("listOfFosterPets", listOfFosterPets);
+			}
+			//volunteer.setListOfFosterPets(listOfFosterPets);
+			//model.addAttribute("listOfFosterPets", listOfFosterPets);
+			//volunteer.addPet(pet);
+			//volunteer.getListOfFosterPets();
+			//volunteer.setListOfFosterPets(listOfFosterPets);
 		}
 		
+		model.addAttribute("volunteers", volunteerService.getAllVolunteers());
+		// neither volunteer service or repo method resolved displaying on results page issues
+		//model.addAttribute("volunteers", volunteerRepo.findAll());
+		// adding below line didn't resolve results page viewAllVolunteers error issues
+		//model.addAttribute("selectablePets", petService.getAllPets());
+		return "results";
+		//return "viewVolunteers"; //? make new/separate pages for viewing Volunteers/Customers/Pets
 	}
 	
 	//@GetMapping("/viewAllVolunteers")
@@ -90,7 +117,9 @@ public class VolunteerWebController {
 	//@GetMapping("/editVolunteer/{id}")
 	@GetMapping("/editVolunteer/{volunteerId}")
 	public String editVolunteer(@PathVariable("volunteerId") long volunteerId, Model model) {
-		Volunteer volunteer = volunteerService.getVolunteerById(volunteerId);
+		//Volunteer volunteer = volunteerService.getVolunteerById(volunteerId);
+		// trial of using volunteerRepo rather than service above to resolve display issues
+		Volunteer volunteer = volunteerRepo.findById(volunteerId).orElse(null);
 		// ??would need to change above line to below if can't create method in VolunteerService to address
 		// creation of empty Volunteer object to put in data from web page for new Volunteer if 
 		// volunteerId that was searched for is not found
@@ -98,6 +127,16 @@ public class VolunteerWebController {
 		model.addAttribute("newVolunteer", volunteer);
 		//??model.addAttribute("selectablePets", petService.getAllPets()); or need if/else?
 		// ?? didn't work in WebController for pets if fosterOwner null
+//		if (volunteer.getListOfFosterPets() == null) {
+//			//List<Pet> selectablePets = new ArrayList<>();
+//			//model.addAttribute("selectablePets", petService.getAllPets());
+//			List<Pet> selectablePets = petService.getAllPets();
+//			model.addAttribute("selectablePets", selectablePets);
+//		} //else {
+//			
+//		//}
+		List<Pet> selectablePets = petService.getAllPets();
+		model.addAttribute("selectablePets", selectablePets);
 		return "input";
 		//return "newVolunteer"; //? make new/separate pages for viewing new Volunteers/Customers/Pets
 	}
@@ -107,8 +146,10 @@ public class VolunteerWebController {
 	//@PostMapping("volunteer/update/{volunteerId}")
 	@PostMapping("/updateVolunteer/{volunteerId}")
 	public String updateVolunteer(@ModelAttribute("volunteer") Volunteer volunteer, Model model) {
-		volunteerService.saveVolunteerEdit(volunteer);
-		// adding below line &/or changing return doesn't resolve issues
+		//volunteerService.saveVolunteerEdit(volunteer);
+		//Trial commenting out above & using repo to save
+		volunteerRepo.save(volunteer);
+		// adding below line &/or changing return to "results" doesn't resolve issues
 		model.addAttribute("volunteer", volunteer);
 		return viewAllVolunteers(model);
 		//return "results";
