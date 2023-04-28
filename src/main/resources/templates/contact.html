@@ -5,8 +5,49 @@
 		<title>P.A.W.S - Contact Us</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+	<script>
+		function pageSetup(){
+			const form = document.getElementById("form");
+			const firstName = document.getElementById("firstName");
+			const lastName = document.getElementById("lastName");
+			const email = document.getElementById("email");
+			const phone = document.getElementById("phone");
+			
+			form.addEventListener('submit', validateInput);
+		}
+		
+		function validateInput(e){
+			let messages = [];
+			
+			if (firstName.value === '' || firstName.value == null){
+				messages.push('First Name is required');
+			}
+			if (/\d/.test(firstName.value)){
+				messages.push('First name field cannot contain a number')
+			}
+			if (lastName.value === '' || lastName.value == null){
+				messages.push('Last Name is required');
+			}
+			if (/\d/.test(lastName.value)){
+				messages.push('Last name field cannot contain a number')
+			}
+			if ((email.value === '' || email.value == null) && (phone.value === '' || phone.value == null)){
+				messages.push('You must provide either an email or phone number');
+			}
+			if ((phone.value.length > 0) && /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(phone.value) == false){
+				console.log(phone.value.length)
+				messages.push('Phone number can only be entered in the following formats: (123) 456-7890 / (123)456-7890  / 123-456-7890 / 1234567890');
+			}
+
+			if (messages.length > 0){
+				errorElement.style.display = 'block';
+				errorElement.innerHTML = messages.join('<br>');
+				event.preventDefault();
+			}
+		}
+	</script>
 	</head>
-	<body>
+	<body onload="pageSetup()">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 		<header>
 			<img style= "width: 100%; height:90%; object-fit: cover; object-position: top;" src="imgs/header-photo.jpg">
@@ -44,26 +85,27 @@
 		<main>
 			<h1 style="text-align:center; padding: 50px;">Contact us</h1>
 			<p style="text-align: center; padding: 20px;">Thank you so much for considering P.A.W.S. Please reach out to us using the form below and we will get back to you as soon as possible.</p>
-			<form method="post">
+			<form id="form" method="post">
 				<div class="container" style="margin-bottom:50px;">
+					<div id="errorElement" class="alert alert-danger" style="display:none"></div>
 					<div style="border:1px black solid; padding:50px; border-radius: 2px;">
 						<div class="row">
 						<div class="col-lg-6">
-							<input type="text" class="form-control" placeholder="First name" aria-label="First name" style="margin-bottom: 40px;" required>
+							<input id="firstName" type="text" class="form-control" placeholder="First name" aria-label="First name" style="margin-bottom: 40px;">
 						</div>
 						<div class="col-lg-6">
-							<input type="text" class="form-control" placeholder="Last name" aria-label="Last name" required>
+							<input id="lastName" type="text" class="form-control" placeholder="Last name" aria-label="Last name">
 						</div>
 						<div class="col-lg-6">
-							<input type="email" class="form-control" placeholder="Email" aria-label="Last name" required>
+							<input id="email" type="email" class="form-control" placeholder="Email" aria-label="Last name">
 						</div>
 						<div class="col-lg-6">
-							<input type="phone" class="form-control" placeholder="Phone number" aria-label="Last name" required>
+							<input id="phone" type="phone" class="form-control" placeholder="Phone number" aria-label="Last name">
 						</div>
 						</div><br>
 						<div class="mb-3">
 							<label for="questions" class="form-label">Your questions or concerns</label>
-							<textarea class="form-control" id="questions" rows="3" required></textarea>
+							<textarea class="form-control" id="questions" rows="3"></textarea>
 						</div>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
