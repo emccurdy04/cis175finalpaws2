@@ -72,17 +72,28 @@
 	<td th:text="${currentVolunteer.zip}" />
 	<td th:text="${currentVolunteer.phone}" />
 	<td th:text="${currentVolunteer.email}" />
+	
+	<!-- every method tried to get volunteers to display on results page didn't work
+	- broke & unable to find a fix, even w/ removing listOfFosterPets field from results page -->
 	<!-- ??May need to change how below ArrayList is resulted to display in rows for each pet -->
 	<!-- <td th:text="${currentVolunteer.listOfFosterPets}" /> -->
-	<!-- <td th:switch="${#currentVolunteer.listOfFostPets}">
+	<!-- 
+	<td th:switch="${#currentVolunteer.listOfFosterPets}">
 		<td><h5 th:case="null">No foster pets</h5></td>
 		<td th:case="*">
 		<ul>
-			<li th:each="pet : ${#currentVolunteer.listOfFostPets}" 
+			<li th:each="pet : ${#currentVolunteer.listOfFosterPets}" 
 			th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}" 
 			th:value="${pet.petId}"/>
 		</ul></td>-->
-	
+	<!-- trial of if statement to get volunteers to display in results page - didn't work-->
+	<!-- <tr th:if="${currentVolunteer.listOfFosterPets.empty}">
+		<td><h5>No foster pets</h5></td>
+	</tr>
+	<tr th:each="pet : ${currentVolunteer.listOfFosterPets}">
+		<td th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}" 
+			th:value="${pet.petId}"/>
+	</tr> -->
 	<!-- ?below version is an attempt to address null values -->
 	<!--  see if commenting out below listOfFosterPets field/variable will at least get results
 	page to display -viewAllVolunteers again - didn't work
@@ -134,7 +145,19 @@
 	<td th:text="${currentCustomer.email}" />
 	<!-- ??May need to change how below ArrayList is resulted to display in rows for each pet -->
 	<!--<td th:text="${currentCustomer?.selectedPet?.selectedPet}" />-->
-	<td th:text="${currentCustomer.selectedPet?.selectedPet}" />
+	<!-- below line only works if nothing in selectedPet petId field of customers table -->
+	<!--  
+	<td th:text="${currentCustomer.selectedPet?.selectedPet}" >-->
+	
+	<!-- <td th:text="${currentCustomer.selectedPet?.selectedPet.parse}" > -->
+	<!-- none of other methods tried below worked -->
+	<!--  below trial of using Thymeleaf conversions utility object expression to convert object
+	to specified class, this did not help & caused results page to error w/ viewAllCustomers call-->
+	<!-- <td th:text="${#conversions.convert(currentCustomer.selectedPet?.selectedPet, Pet)}" > -->
+	<!-- 
+	<td th:if:text="${currentCustomer.selectedPet?.selectedPet}.isEmpty">
+		<td th:text="No selected Pet">
+	<td th:else:text="${currentCustomer.selectedPet?.selectedPet}" > -->
 	<!-- ?above version is an  attempt to address null values <td th:text="${currentVolunteer.selectedPet}" />-->
 	
 	<!-- make edit/delete calls more specific for each class
@@ -149,15 +172,18 @@
 </div>
 </div>
 <br/>
-<a href="viewAll">Refresh page/View all Pets</a><br />
+<!-- <a href="viewAll">Refresh page/View all Pets</a><br /> -->
+<a href="../viewAll">Refresh page/View all Pets</a><br />
 <a href="../addPet">Add a new pet</a><br />
 <!-- <a href="../inputPet">Add a new pet</a><br /> -->
-<a href="viewAllVolunteers">Refresh page/View all Volunteers</a><br />
-<!-- no difference in getting results page to display all volunteers w/ above or below link 
-<a href="../viewAllVolunteers">Refresh page/View all Volunteers2</a><br />-->
+<!-- <a href="viewAllVolunteers">Refresh page/View all Volunteers</a><br />
+no difference noted in getting results page to display all volunteers w/ above or below link -->
+<a href="../viewAllVolunteers">Refresh page/View all Volunteers</a><br />
 <a href="../addVolunteer">Add a new volunteer</a><br />
-<a href="viewAllCustomers">Refresh page/View all customers</a><br />
+<!-- <a href="viewAllCustomers">Refresh page/View all customers</a><br /> -->
+<a href="../viewAllCustomers">Refresh page/View all customers</a><br />
 <a href="../addCustomer">Add a new customer</a><br />
-<a href="index.html">Return to home page</a>
+<!-- <a href="index.html">Return to home page</a> -->
+<a href="../index.html">Return to home page</a>
 </body>
 </html>

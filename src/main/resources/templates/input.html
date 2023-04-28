@@ -22,7 +22,8 @@ Enter/Update Pet's type: <input name="petType" size="20" th:field="*{petType}"><
 Enter/Update Pet's breed: <input name="breed" size="20" th:field="*{breed}"><br/>
 Enter/Update Pet's gender: <input name="gender" size="20" th:field="*{gender}"><br/>
 <br/>
-Enter/Update Pet's foster owner info:<!-- <input name="fosterOwner" size="50" th:field="*{fosterOwner}"><br/> -->
+<!-- Could never get foster owner to populate correctly so commented out 
+Enter/Update Pet's foster owner info: --> <!-- <input name="fosterOwner" size="50" th:field="*{fosterOwner}"><br/> -->
 
 <!-- attempting to find way to get drop down selection for available volunteers in DB table to pick from-->
 <!-- <select th:field="*{selectedVolunteer}" class="form-control" id="selectedVolunteer" name="selectedVolunteer"> -->
@@ -30,13 +31,14 @@ Enter/Update Pet's foster owner info:<!-- <input name="fosterOwner" size="50" th
 <!-- <select th:field="*{fosterOwner}" id="selectedVolunteer" name="selectedVolunteer" required> -->
 <!-- Below method w/ altered '/addPet' Get mapping from webcontroller not working like did w/ volunteers
 & customers displaying below -->
+<!--  
 <select th:field="*{fosterOwner}" id="fosterOwner" name="fosterOwner">
 	<option value="">Select Foster Owner</option>
 	<option th:each="volunteer : ${selectableVolunteers}"  
 			th:value="${volunteer.volunteerId}"
 			th:text="${volunteer.firstName}+' '+${volunteer.lastName}+' ; email: '+${volunteer.email}+' ; Phone: '+${volunteer.phone}">
 	</option>
-</select>
+</select>-->
 <!-- below & above both just give drop down list of default value only - not pulling from volunteers table
 <select th:field="*{fosterOwner.volunteerId}" id="selectedVolunteer" name="selectedVolunteer" required>
 	<option value="0">Select Foster Owner</option>
@@ -152,7 +154,8 @@ Selected Pet: <!-- <input name="selectedPet" size="50" th:field="*{selectedPet}"
 <select th:field="*{selectedPet}" id="selectedPet" name="selectedPet" required> 
 <!-- <select th:field="*{selectedPet}" id="selectablePets" name="selectablePets" required>-->
 	<option value="">--Select Pet to meet--</option>
-	<!-- <option th:each="pet : ${pets}"  -->
+	<!-- <option th:each="pet : ${pets}" -->
+	<!-- th:value="${pet}"  -->
 	<option th:each="pet : ${selectablePets}" 
 			th:value="${pet.petId}"
 			th:text="${pet.petName}+' ; PetType: '+${pet.petType}+' ; Breed: '+${pet.breed}+' ; Gender: '+${pet.gender}">

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dmacc.beans.Customer;
+import dmacc.beans.Pet;
 import dmacc.repository.CustomerRepository;
 
 /**
@@ -26,6 +27,9 @@ import dmacc.repository.CustomerRepository;
 public class CustomerService {
 	@Autowired
 	CustomerRepository customerRepo;
+	
+	@Autowired
+	PetService petService;
 	
 	public Customer getCustomerById(long customerId) {
 		return customerRepo.findById(customerId).get();
@@ -47,6 +51,24 @@ public class CustomerService {
 	
 	public Customer findCustomerByEmail(String email) {
 		return customerRepo.findCustomerByEmail(email);
+	}
+	
+	public Pet getSelectedPet(long customerId) {
+		Customer customer = customerRepo.findById(customerId).get();
+		return customer.getSelectedPet();
+	}
+	
+	public Pet getSelectedPet(Customer customer) {
+		//Customer customer = customerRepo.findById(customerId).get();
+		Pet selectedPet = customer.getSelectedPet();
+		return selectedPet;
+		//return customer.getSelectedPet();
+	}
+	
+	public Pet parse(String selectedPet, Pet pet) {
+		//long petId = (long)valueOf(text);
+		Long petId = Long.valueOf(selectedPet);
+		return this.petService.getPetById(petId);
 	}
 
 }
